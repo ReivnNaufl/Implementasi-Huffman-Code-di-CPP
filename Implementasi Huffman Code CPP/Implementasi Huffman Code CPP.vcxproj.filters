@@ -15,11 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Test.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="coba.cpp">
+    <ClCompile Include="Reivan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rindi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Yazid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Reivan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rindi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Yazid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

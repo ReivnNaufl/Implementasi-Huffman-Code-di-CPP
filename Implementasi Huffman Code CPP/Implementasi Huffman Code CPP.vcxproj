@@ -127,8 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="coba.cpp" />
-    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Reivan.cpp" />
+    <ClCompile Include="Rindi.cpp" />
+    <ClCompile Include="Yazid.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Reivan.h" />
+    <ClInclude Include="Rindi.h" />
+    <ClInclude Include="Yazid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
