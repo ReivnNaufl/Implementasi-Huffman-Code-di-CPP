@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="Reivan.h" />
     <ClInclude Include="Rindi.h" />
+    <ClInclude Include="struct.h" />
     <ClInclude Include="Yazid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
