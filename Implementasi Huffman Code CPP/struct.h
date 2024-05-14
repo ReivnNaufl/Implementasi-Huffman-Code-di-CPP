@@ -3,6 +3,16 @@
 #ifndef struct_h
 #define struct_h
 
+#define info(X) (X)->info
+#define freq(X) (X)->freq
+#define left(X) (X)->left
+#define right(X) (X)->right
+#define next(X) (X)->next
+#define prev(X) (X)->prev
+#define pNode(X) (X)->pNode
+#define byte(X) (X)->byte
+#define code(X) (X)->code
+
 typedef unsigned char infotype;
 
 typedef struct node {
