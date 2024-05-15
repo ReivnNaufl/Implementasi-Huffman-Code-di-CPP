@@ -22,7 +22,7 @@ typedef struct node {
 }node;
 
 typedef struct queue {
-	struct queue* next, * prev;
+	struct queue* next;
 	node* pNode;
 }queue;
 
@@ -30,6 +30,12 @@ typedef struct table {
 	struct table* next, * prev;
 	infotype byte;
 	char* code;
-};
+}table;
+
+typedef node* nAddress;
+
+typedef queue* qAddress;
+
+typedef table* tAddress;
 
 #endif

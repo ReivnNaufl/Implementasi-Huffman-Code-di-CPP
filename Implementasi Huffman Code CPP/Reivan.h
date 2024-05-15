@@ -4,16 +4,18 @@
 
 #include "struct.h"
 
-node* createNode(infotype infoIns);
+nAddress createNode(infotype infoIns);
 
-bool isDupe(queue* head, infotype check);
+bool isDupe(qAddress head, infotype check);
 
-queue* createQueueNode(node* nodePtr);
+qAddress createQueueNode(nAddress nodePtr);
 
-void queueInsert(queue* head, queue* newNode);
+void queueInsert(qAddress* head, qAddress newNode);
 
-void freqPlusOne(queue* head, infotype container);
+void freqPlusOne(qAddress head, infotype container);
 
-void printList(queue* head);
+qAddress createList(char* fileName);
+
+void printList(qAddress head);
 
 #endif

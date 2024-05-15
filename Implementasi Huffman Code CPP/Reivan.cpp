@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "Reivan.h"
 
-node* createNode(infotype infoIns) {
-	node* nodePtr = (node*)malloc(sizeof(node));
+nAddress createNode(infotype infoIns) {
+	nAddress nodePtr = (nAddress)malloc(sizeof(node));
 
 	if (nodePtr != NULL) {
 		freq(nodePtr) = 1;
@@ -18,13 +18,12 @@ node* createNode(infotype infoIns) {
 	}
 }
 
-queue* createQueueNode(node* nodePtr) {
-	queue* qPtr = (queue*)malloc(sizeof(queue));
+qAddress createQueueNode(nAddress nodePtr) {
+	qAddress qPtr = (qAddress)malloc(sizeof(queue));
 
 	if (qPtr != NULL) {
 		pNode(qPtr) = nodePtr;
 		next(qPtr) = NULL;
-		prev(qPtr) = NULL;
 		return qPtr;
 	}
 	else {
@@ -33,8 +32,8 @@ queue* createQueueNode(node* nodePtr) {
 	}
 }
 
-bool isDupe(queue* head, infotype check) {
-	queue* p = head;
+bool isDupe(qAddress head, infotype check) {
+	qAddress p = head;
 
 	while (p != NULL) {
 		if (info(pNode(p)) == check) {
@@ -47,11 +46,11 @@ bool isDupe(queue* head, infotype check) {
 	return false;
 }
 
-void queueInsert(queue* head, queue* newNode) {
-	queue* p = head;
+void queueInsert(qAddress* head, qAddress newNode) {
+	qAddress p = *head;
 
-	if (head == NULL) {
-		head = newNode;
+	if (*head == NULL) {
+		*head = newNode;
 	}
 	else {
 		while (next(p) != NULL) {
@@ -61,8 +60,8 @@ void queueInsert(queue* head, queue* newNode) {
 	}
 }
 
-void freqPlusOne(queue* head, infotype container) {
-	queue* p = head;
+void freqPlusOne(qAddress head, infotype container) {
+	qAddress p = head;
 
 	while (info(pNode(p)) != container) {
 		p = next(p);
@@ -70,10 +69,10 @@ void freqPlusOne(queue* head, infotype container) {
 	freq(pNode(p)) += 1;
 }
 
-queue* createList(char *fileName) {
+qAddress createList(char *fileName) {
 	FILE* fFile;
-	node* nodePtr;
-	queue* qPtr = NULL, *head = NULL;
+	nAddress nodePtr;
+	qAddress qPtr = NULL, head = NULL;
 	infotype byteContainer;
 
 	fFile = fopen(fileName, "rb");
@@ -81,27 +80,31 @@ queue* createList(char *fileName) {
 		printf("GAGAL MEMUAT FILE!");
 		exit(1);
 	}
-
+	byteContainer = fgetc(fFile);
+	
 	while (!feof(fFile)) {
-		byteContainer = fgetc(fFile);
 		if (isDupe(head, byteContainer)) {
 			freqPlusOne(head, byteContainer);
 		}
 		else {
 			nodePtr = createNode(byteContainer);
 			qPtr = createQueueNode(nodePtr);
-			queueInsert(head, qPtr);
+			queueInsert(&head, qPtr);
 		}
+		byteContainer = fgetc(fFile);
 	}
 
 	return head;
 }
 
-void printList(queue* head) {
-	queue* p = head;
+void printList(qAddress head) {
+	qAddress p = head;
+	int total = 0;
 
 	while (p != NULL) {
 		printf("%x %d\n", info(pNode(p)), freq(pNode(p)));
+		total += freq(pNode(p));
 		p = next(p);
 	}
+	printf("\n%d", total);
 }

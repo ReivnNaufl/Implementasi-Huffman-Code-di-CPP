@@ -3,7 +3,10 @@
 #include "Reivan.h"
 
 int main() {
-	
+	queue* head = NULL;
+
+	head = createList((char*)"INPUT/Untuk-di-encode/aae.bmp");
+	printList(head);
 	
 	
 	return 0;
