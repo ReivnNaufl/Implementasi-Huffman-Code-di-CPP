@@ -28,7 +28,7 @@ typedef struct queue {
 
 typedef struct table {
 	struct table* next, * prev;
-	unsigned char byte;
+	infotype byte;
 	char* code;
 };
 

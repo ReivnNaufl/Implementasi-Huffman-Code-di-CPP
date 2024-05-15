@@ -8,4 +8,10 @@ node* createNode(infotype infoIns);
 
 bool isDupe(queue* head, infotype check);
 
+queue* createQueueNode(node* nodePtr);
+
+void queueInsert(queue* head, queue* newNode);
+
+void freqPlusOne(queue* head, infotype container);
+
 #endif
