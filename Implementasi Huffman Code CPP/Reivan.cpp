@@ -96,3 +96,12 @@ queue* createList(char *fileName) {
 
 	return head;
 }
+
+void printList(queue* head) {
+	queue* p = head;
+
+	while (p != NULL) {
+		printf("%x %d\n", info(pNode(p)), freq(pNode(p)));
+		p = next(p);
+	}
+}

@@ -14,4 +14,6 @@ void queueInsert(queue* head, queue* newNode);
 
 void freqPlusOne(queue* head, infotype container);
 
+void printList(queue* head);
+
 #endif
