@@ -3,9 +3,13 @@
 #include "Reivan.h"
 
 int main() {
-	queue* head = NULL;
+	qAddress head = NULL, a = NULL, b = NULL;
 
 	head = createList((char*)"INPUT/Untuk-di-encode/aae.bmp");
+	printList(head);
+
+
+	mergeSort(&head);
 	printList(head);
 	
 	

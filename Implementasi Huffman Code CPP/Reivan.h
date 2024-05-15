@@ -18,4 +18,10 @@ qAddress createList(char* fileName);
 
 void printList(qAddress head);
 
+void mergeSort(qAddress* head);
+
+void splitList(qAddress src, qAddress* lList, qAddress* rList);
+
+qAddress merge(qAddress lSubList, qAddress rSubList);
+
 #endif

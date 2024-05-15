@@ -106,5 +106,79 @@ void printList(qAddress head) {
 		total += freq(pNode(p));
 		p = next(p);
 	}
-	printf("\n%d", total);
+	printf("\n%d\n-----\n\n", total);
+}
+
+void mergeSort(qAddress *head) {
+	qAddress pHead = *head, left, right;
+
+	if ((pHead == NULL) || (next(pHead) == NULL)) {
+		return;
+	}
+
+	splitList(pHead, &left, &right);
+
+	mergeSort(&left);
+	mergeSort(&right);
+
+	*head = merge(left, right);
+}
+
+void splitList(qAddress src, qAddress* lSubList, qAddress* rSubList) {
+	qAddress mid = src, end = next(src);
+
+	while (end != NULL) {
+		end = next(end);
+		if (end != NULL) {
+			end = next(end);
+			mid = next(mid);
+		}
+	}
+
+	*lSubList = src;
+	*rSubList = next(mid);
+	next(mid) = NULL;
+}
+
+qAddress merge(qAddress lSubList, qAddress rSubList) {
+	qAddress merged = NULL, lPtr = lSubList, rPtr = rSubList, temp = NULL;
+
+	while ((lPtr != NULL) and (rPtr != NULL)) {
+		if (freq(pNode(lPtr)) < freq(pNode(rPtr))) {
+			queueInsert(&merged, lPtr);
+			temp = lPtr;
+			lPtr = next(lPtr);
+			next(temp) = NULL;
+		}
+		else if (freq(pNode(lPtr)) > freq(pNode(rPtr))) {
+			queueInsert(&merged, rPtr);
+			temp = rPtr;
+			rPtr = next(rPtr);
+			next(temp) = NULL;
+		}
+		else {
+			if (info(pNode(lPtr)) < info(pNode(rPtr))) {
+				queueInsert(&merged, lPtr);
+				temp = lPtr;
+				lPtr = next(lPtr);
+				next(temp) = NULL;
+			}
+			else {
+				queueInsert(&merged, rPtr);
+				temp = rPtr;
+				rPtr = next(rPtr);
+				next(temp) = NULL;
+			}
+		}
+	}
+
+	if (lPtr == NULL) {
+		queueInsert(&merged, rPtr);
+	}
+
+	if (rPtr == NULL) {
+		queueInsert(&merged, lPtr);
+	}
+
+	return merged;
 }
