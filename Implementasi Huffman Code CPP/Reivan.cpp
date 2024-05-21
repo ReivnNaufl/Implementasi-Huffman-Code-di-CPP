@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include "Reivan.h"
 
 //Fungsi untuk membuat node baru bertipe node dengan menginisialisasikan value sesuai dengan parameter 
@@ -221,4 +222,86 @@ qAddress merge(qAddress lSubList, qAddress rSubList) {
 
 	//retunr hasil merge dan sort
 	return merged;
+}
+
+int mainMenu() {
+	int cursor = 1, input;
+
+	for (;;) {
+		system("cls");
+		printf("==========================================\n");
+		printf("              Huffman Coding              \n");
+		printf("==========================================\n");
+		printf("%c Encode\n", (cursor == 1) ? '>' : ' ');
+		printf("%c Decode\n", (cursor == 2) ? '>' : ' ');
+		printf("%c Quit\n", (cursor == 3) ? '>' : ' ');
+
+		input = getch();
+
+		switch (input)
+		{
+		case 72:
+			if (cursor <= 1) {
+				cursor = 3;
+			}
+			else {
+				cursor--;
+			}
+			break;
+		case 80:
+			if (cursor >= 3) {
+				cursor = 1;
+			}
+			else {
+				cursor++;
+			}
+			break;
+		case 13:
+			return cursor;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+int encodeMenu() {
+	int cursor = 1, input;
+
+	for (;;) {
+		system("cls");
+		printf("==========================================\n");
+		printf("                   Encode                 \n");
+		printf("==========================================\n");
+		printf("%c Compare Hasil Encode\n", (cursor == 1) ? '>' : ' ');
+		printf("%c Print Tree\n", (cursor == 2) ? '>' : ' ');
+		printf("%c Return\n", (cursor == 3) ? '>' : ' ');
+
+		input = getch();
+
+		switch (input)
+		{
+		case 72:
+			if (cursor <= 1) {
+				cursor = 3;
+			}
+			else {
+				cursor--;
+			}
+			break;
+		case 80:
+			if (cursor >= 3) {
+				cursor = 1;
+			}
+			else {
+				cursor++;
+			}
+			break;
+		case 13:
+			return cursor;
+			break;
+		default:
+			break;
+		}
+	}
 }

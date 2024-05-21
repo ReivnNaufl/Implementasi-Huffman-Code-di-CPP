@@ -34,4 +34,8 @@ void splitList(qAddress src, qAddress* lList, qAddress* rList);
 //Functionuntuk manggabungkan 2 queue secara sorted ascending berdasarkan freq dan byte
 qAddress merge(qAddress lSubList, qAddress rSubList);
 
+int mainMenu();
+
+int encodeMenu();
+
 #endif

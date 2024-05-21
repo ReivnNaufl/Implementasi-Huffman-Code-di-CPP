@@ -4,6 +4,10 @@
 
 int main() {
 	qAddress head = NULL, a = NULL, b = NULL;
+	int res;
+
+	res = mainMenu();
+	res = encodeMenu();
 
 	head = createList((char*)"INPUT/Untuk-di-encode/aae.bmp");
 	printList(head);
