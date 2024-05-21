@@ -4,4 +4,7 @@
 
 #include "struct.h"
 
+int binerKeDesimal(const char* biner);
+
+void desimalKeBiner(int desimal, char* biner);
 #endif
