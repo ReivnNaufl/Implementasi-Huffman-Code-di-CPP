@@ -19,9 +19,10 @@ int main() {
 
     // Step 4: Print the Huffman Tree
     printf("Huffman Tree:\n");
-    printBinaryTree(root, 0, 10);
+    printBinaryTree(root);
+    //  printBinaryTree(root, 0, 10);
 
-    // Step 5: Generate Huffman Codes
+        // Step 5: Generate Huffman Codes
     table codeTable;
     codeTable.next = NULL;
 
