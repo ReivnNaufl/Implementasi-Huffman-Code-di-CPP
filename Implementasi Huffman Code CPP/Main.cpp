@@ -1,24 +1,41 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "Reivan.h"
+#include "Rindi.h"
 
 int main() {
-	qAddress head = NULL, a = NULL, b = NULL;
-	int res;
+    // Step 1: Create a list from the input file
+    qAddress head = createList((char*)"INPUT/Untuk-di-encode/aae.bmp");
+    printf("Initial list:\n");
+    printList(head);
 
-	res = mainMenu();
-	res = encodeMenu();
+    // Step 2: Sort the list by frequency
+    mergeSort(&head);
+    printf("Sorted list:\n");
+    printList(head);
 
-	head = createList((char*)"INPUT/Untuk-di-encode/aae.bmp");
-	printList(head);
+    // Step 3: Build the Huffman Tree
+    nAddress root = buildHuffmanTree(&head);
 
+    // Step 4: Print the Huffman Tree
+    printf("Huffman Tree:\n");
+    printBinaryTree(root);
+    //  printBinaryTree(root, 0, 10);
 
-	mergeSort(&head);
-	printList(head);
-	
-	
-	return 0;
+        // Step 5: Generate Huffman Codes
+    table codeTable;
+    codeTable.next = NULL;
+
+    char code[100];  // A buffer to hold the current code
+    generateCodes(root, code, 0, &codeTable);
+
+    // Step 6: Print the Huffman Codes
+    printf("Huffman Codes:\n");
+    printCodes(codeTable.next);
+
+    return 0;
 }
+
 
 
 
