@@ -7,4 +7,6 @@
 int binerKeDesimal(const char* biner);
 
 void desimalKeBiner(int desimal, char* biner);
+
+void encode(char* filename, table huff);
 #endif

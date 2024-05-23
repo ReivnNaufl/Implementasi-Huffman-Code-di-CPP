@@ -2,10 +2,11 @@
 #include <ctype.h>
 #include "Reivan.h"
 #include "Rindi.h"
+#include "Yazid.h"
 
 int main() {
     // Step 1: Create a list from the input file
-    qAddress head = createList((char*)"INPUT/Untuk-di-encode/aae.bmp");
+    qAddress head = createList((char*)"INPUT/Untuk-di-encode/test2.bmp");
     printf("Initial list:\n");
     printList(head);
 
@@ -32,6 +33,16 @@ int main() {
     // Step 6: Print the Huffman Codes
     printf("Huffman Codes:\n");
     printCodes(codeTable.next);
+
+    encode((char*)"INPUT/Untuk-di-encode/test2.bmp", codeTable);
+
+    tAddress p; 
+    p = codeTable.next;
+    while (p != NULL) {
+        printf("%x\n", p->byte);
+        p = next(p);
+    }
+
 
     return 0;
 }
