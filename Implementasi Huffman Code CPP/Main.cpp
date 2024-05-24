@@ -3,6 +3,8 @@
 #include "Reivan.h"
 #include "Rindi.h"
 #include "Yazid.h"
+#include<Windows.h>
+#include<stdlib.h>
 
 int main() {
     // Step 1: Create a list from the input file
@@ -42,7 +44,7 @@ int main() {
         printf("%x\n", p->byte);
         p = next(p);
     }
-
+    
 
     return 0;
 }
