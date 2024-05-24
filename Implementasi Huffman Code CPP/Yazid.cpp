@@ -55,43 +55,44 @@ bool Compare(qAddress head, table man) {
     return false;
 }
 
-void binaryToAscii(const char* binaryString, char* asciiString) {
-    int length = strlen(binaryString);
-    int remainder = length % 8;
 
-    // Jika panjang binaryString tidak merupakan kelipatan dari 8, tambahkan nol di akhir
-    if (remainder != 0) {
-        int padding = 8 - remainder;
-        char* paddedBinaryString = (char*)malloc(length + padding + 1); // +1 untuk null-terminator
-        strcpy(paddedBinaryString, binaryString);
-        for (int i = 0; i < padding; i++) {
-            paddedBinaryString[length + i] = '0';
+
+char* binary_to_ascii(const char* binary_string) {
+    size_t len = strlen(binary_string);
+    if (len % 8 != 0) {
+        // Calculate the number of zeros needed to make the length a multiple of 8
+        size_t padding = 8 - (len % 8);
+        // Allocate memory for the padded binary string
+        char* padded_binary = (char*)malloc(len + padding + 1);
+        if (padded_binary == NULL) {
+            fprintf(stderr, "Memory allocation failed.\n");
+            return NULL;
         }
-        paddedBinaryString[length + padding] = '\0'; // Null-terminate the padded string
-        binaryString = paddedBinaryString;
-        length += padding;
+        // Copy the original binary string to the padded string
+        strcpy(padded_binary, binary_string);
+        // Append the required number of zeros to the end
+        strcat(padded_binary, "00000000" + padding);
+        len += padding; // Update the length
+        // Display a message about the padding
+        // Use the padded binary string for further processing
+        binary_string = padded_binary;
     }
 
-    char byte[9];
-    int index = 0;
-
-    for (int i = 0; i < length; i += 8) {
-        strncpy(byte, binaryString + i, 8);
-        byte[8] = '\0'; // Null-terminate the byte string
-
-        // Convert binary string to integer (ASCII code)
-        char asciiChar = (char)strtol(byte, NULL, 2);
-
-        // Store the ASCII character in the output string
-        asciiString[index++] = asciiChar;
+    size_t ascii_len = len / 8;
+    char* ascii_string = (char*)malloc(ascii_len + 1);
+    if (ascii_string == NULL) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        return NULL;
     }
 
-    asciiString[index] = '\0'; // Null-terminate the ASCII string
-
-    // Free the paddedBinaryString if it was allocated
-    if (remainder != 0) {
-        free((char*)binaryString);
+    for (size_t i = 0; i < ascii_len; ++i) {
+        char byte[9] = { 0 };
+        strncpy(byte, binary_string + i * 8, 8);
+        ascii_string[i] = (char)strtol(byte, NULL, 2);
     }
+    ascii_string[ascii_len] = '\0';
+
+    return ascii_string;
 }
 
 void encode(char* filename, table huff) {
@@ -116,13 +117,43 @@ void encode(char* filename, table huff) {
     unsigned char byteContainer;
     unsigned char buffer = 0;
     int bitCount = 0;
+    char padding = 0; // Variabel untuk menyimpan jumlah padding
 
     // Read the input file byte by byte
+    // Initialize frequent to 0
+    int frequent = 0;
+
+    // Initialize bin to an empty string
+    size_t binSize = 1024;
+    char* bin = (char*)malloc(binSize * sizeof(char));
+    if (bin == NULL) {
+        perror("Memory allocation failed");
+        fclose(fFile);
+        fclose(Encode);
+        exit(EXIT_FAILURE);
+    }
+    bin[0] = '\0';
+
+
     while (fread(&byteContainer, sizeof(unsigned char), 1, fFile)) {
         ptrtree = huff.next;
         // Traverse the Huffman table to find the code for the byte
         while (ptrtree != NULL) {
             if (byteContainer == ptrtree->byte) {
+                // Check if bin needs to be resized
+                size_t newLength = strlen(bin) + strlen(ptrtree->code) + 1;
+                if (newLength >= binSize) {
+                    binSize *= 2;
+                    bin = (char*)realloc(bin, binSize * sizeof(char));
+                    if (bin == NULL) {
+                        perror("Memory reallocation failed");
+                        fclose(fFile);
+                        fclose(Encode);
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                strcat(bin, ptrtree->code);
+
                 // Write the corresponding Huffman code to the output file
                 char* code = ptrtree->code;
                 for (int i = 0; code[i] != '\0'; ++i) {
@@ -131,10 +162,10 @@ void encode(char* filename, table huff) {
                         buffer |= 1;
                     }
                     bitCount++;
-
+                    frequent++;
                     // If we have collected 8 bits, write the byte to the file
                     if (bitCount == 8) {
-                        fwrite(&buffer, sizeof(unsigned char), 1, Encode);
+                        //fwrite(&buffer, sizeof(unsigned char), 1, Encode);
                         bitCount = 0;
                         buffer = 0;
                     }
@@ -144,14 +175,32 @@ void encode(char* filename, table huff) {
             ptrtree = ptrtree->next;
         }
     }
-
-    // Write any remaining bits (if any)
-    if (bitCount > 0) {
-        buffer <<= (8 - bitCount);
-        fwrite(&buffer, sizeof(unsigned char), 1, Encode);
+    fprintf(Encode, "%c##", frequent);
+    ptrtree = huff.next;
+    while (ptrtree != NULL) {
+        fprintf(Encode, "%s*&", ptrtree->code);
+        fprintf(Encode, "%c^^", ptrtree->byte);
+        ptrtree = next(ptrtree);
     }
+    char* ascii_string = binary_to_ascii(bin);
+    fprintf(Encode, "%s", ascii_string);
 
     // Close the files
     fclose(fFile);
     fclose(Encode);
+
+    // Print the results for debugging
+    printf("%d\n", frequent);
+    printf("%s\n", bin);
+
+
+
+    // Free the allocated memory
+    free(bin);
+}
+
+
+void decode(char* filename) {
+    table man; 
+
 }

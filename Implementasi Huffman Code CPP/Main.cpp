@@ -8,7 +8,7 @@
 
 int main() {
     // Step 1: Create a list from the input file
-    qAddress head = createList((char*)"INPUT/Untuk-di-encode/test2.bmp");
+    qAddress head = createList((char*)"INPUT/Untuk-di-encode/testap.bmp");
     printf("Initial list:\n");
     printList(head);
 
@@ -36,7 +36,7 @@ int main() {
     printf("Huffman Codes:\n");
     printCodes(codeTable.next);
 
-    encode((char*)"INPUT/Untuk-di-encode/test2.bmp", codeTable);
+    encode((char*)"INPUT/Untuk-di-encode/testap.bmp", codeTable);
 
     tAddress p; 
     p = codeTable.next;
