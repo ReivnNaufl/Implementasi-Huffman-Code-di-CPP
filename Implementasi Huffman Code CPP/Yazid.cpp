@@ -153,7 +153,16 @@ void encode(char* filename, table huff) {
     char freqc1[5]; // Ukuran diubah menjadi 5
     intToAscii(num, freqc1);
     printf("%s", freqc1);
-    fprintf(Result, "%s", freqc1);
+    int i = 0;
+    while (i < 4) {
+        printf("%c", freqc1[i]);
+        i++;
+    }
+    while (i < 4) {
+        fprintf(Result, "%c", (unsigned char)freqc1[i]);
+        i++;
+    }
+    
     printf("%d", num);
     // Close the files
     fclose(fFile);
