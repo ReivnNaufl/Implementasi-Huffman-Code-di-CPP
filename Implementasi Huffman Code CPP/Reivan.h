@@ -38,4 +38,10 @@ int mainMenu();
 
 int encodeMenu();
 
+char* fprintHeader(char* filename, nAddress head);
+
+void countNodes(nAddress head, int* count);
+
+void fprintPreOrder(nAddress head, FILE* filename);
+
 #endif

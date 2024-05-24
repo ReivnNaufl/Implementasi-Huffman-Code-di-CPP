@@ -8,7 +8,7 @@
 
 int main() {
     // Step 1: Create a list from the input file
-    qAddress head = createList((char*)"INPUT/Untuk-di-encode/testp.bmp");
+    qAddress head = createList((char*)"INPUT/Untuk-di-encode/test2.bmp");
     printf("Initial list:\n");
     printList(head);
 
@@ -24,7 +24,7 @@ int main() {
     printf("Huffman Tree:\n");
     printBinaryTree(root);
     //  printBinaryTree(root, 0, 10);
-
+    /*
         // Step 5: Generate Huffman Codes
     table codeTable;
     codeTable.next = NULL;
@@ -44,7 +44,24 @@ int main() {
         printf("%x\n", p->byte);
         p = next(p);
     }
-    
+
+
+    char a[5];
+    uint32_t b = 75329310;
+
+    intToAscii(b, a);
+
+    for (int i = 0; i < 4; i++) {
+        printf("%c", a[i]);
+    }
+
+    */
+    int nodeCount = 0;
+    countNodes(root, &nodeCount);
+
+    printf("\n\n%d", nodeCount);
+
+    fprintHeader((char *)"hasil.jpeg", root);
 
     return 0;
 }

@@ -158,8 +158,9 @@ void encode(char* filename, table huff) {
         printf("%c", freqc1[i]);
         i++;
     }
+    i = 0;
     while (i < 4) {
-        fprintf(Result, "%c", (unsigned char)freqc1[i]);
+        fprintf(Result, "%c", freqc1[i]);
         i++;
     }
     

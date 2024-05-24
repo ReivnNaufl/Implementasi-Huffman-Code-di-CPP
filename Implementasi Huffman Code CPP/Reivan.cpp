@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <string.h>
 #include "Reivan.h"
+#include "Yazid.h"
 
 //Fungsi untuk membuat node baru bertipe node dengan menginisialisasikan value sesuai dengan parameter 
 nAddress createNode(infotype infoIns) {
@@ -304,4 +306,70 @@ int encodeMenu() {
 			break;
 		}
 	}
+}
+
+void countNodes(nAddress head, int* count) {
+	if (head == NULL) {
+		return;
+	}
+
+	*count += 1;
+
+	countNodes(head->left, *&count);
+
+	countNodes(head->right, *&count);
+}
+
+char* fprintHeader(char* filename, nAddress head) {
+	char* resultPath = (char*) malloc(sizeof(filename) + 10 + (sizeof(char) * 18));
+	char* file = (char*) malloc(sizeof(filename));
+	char countByte[5];
+	int count = 0;
+	FILE* fResult;
+
+	if ((resultPath == NULL) || (file == NULL)) {
+		printf("ALOKASI MEMORI GAGAL!!");
+		exit(1);
+	}
+
+	strcpy(file, filename);
+	file = strtok(file, ".");
+	sprintf(resultPath, "OUTPUT/Hasil-encode/%s.txt", file);
+
+	fResult = fopen(resultPath, "wb");
+	if (fResult == NULL) {
+		printf("GAGAL MEMUAT FILE!!");
+		exit(1);
+	}
+
+	countNodes(head, &count);
+	intToAscii((count * 2), countByte);
+	for (int i = 0; i < 4; i++) {
+		fprintf(fResult, "%c", countByte[i]);
+	}
+
+	fprintPreOrder(head, fResult);
+
+	fclose(fResult);
+
+	return resultPath;
+}
+
+void fprintPreOrder(nAddress head, FILE* filename) {
+	if (head == NULL) {
+		return;
+	}
+
+	fprintf(filename, "%c", info(head));
+
+	if (left(head) == NULL) {
+		fprintf(filename, "%c",(unsigned char) 0x01);
+	}
+	else {
+		fprintf(filename, "%c",(unsigned char) 0x00);
+	}
+
+	fprintPreOrder(left(head), filename);
+
+	fprintPreOrder(right(head), filename);
 }
