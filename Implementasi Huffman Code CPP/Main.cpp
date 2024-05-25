@@ -24,7 +24,7 @@ int main() {
     printf("Huffman Tree:\n");
     printBinaryTree(root);
     //  printBinaryTree(root, 0, 10);
-    /*
+   
         // Step 5: Generate Huffman Codes
     table codeTable;
     codeTable.next = NULL;
@@ -36,32 +36,11 @@ int main() {
     printf("Huffman Codes:\n");
     printCodes(codeTable.next);
 
-    encode((char*)"INPUT/Untuk-di-encode/testp.bmp", codeTable);
+    char* hasil = fprintHeader((char*)"test2.bmp", root);
 
-    tAddress p; 
-    p = codeTable.next;
-    while (p != NULL) {
-        printf("%x\n", p->byte);
-        p = next(p);
-    }
+    encode((char*)"INPUT/Untuk-di-encode/test2.bmp", codeTable,hasil);
 
-
-    char a[5];
-    uint32_t b = 75329310;
-
-    intToAscii(b, a);
-
-    for (int i = 0; i < 4; i++) {
-        printf("%c", a[i]);
-    }
-
-    */
-    int nodeCount = 0;
-    countNodes(root, &nodeCount);
-
-    printf("\n\n%d", nodeCount);
-
-    fprintHeader((char *)"hasil.jpeg", root);
+   
 
     return 0;
 }

@@ -5,6 +5,7 @@
 #include "Yazid.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include "Reivan.h"
 
 int binerKeDesimal(const char* biner) {
     int desimal = 0;
@@ -42,7 +43,37 @@ void asciiToInt(char* ascii, uint32_t* num) {
     }
 }
 
+void tambahkan_isi_file(const char* nama_file_a, const char* nama_file_b) {
+    FILE* source_file, * destination_file;
+    char buffer[1024];
+    size_t bytes_read;
 
+    // Open the source file for reading
+    source_file = fopen(nama_file_b, "rb");
+    if (source_file == NULL) {
+        perror("Error opening source file");
+        exit(1);
+    }
+
+    // Open the destination file for writing
+    destination_file = fopen(nama_file_a, "ab");
+    if (destination_file == NULL) {
+        perror("Error opening destination file");
+        fclose(source_file);
+        exit(1);
+    }
+
+    // Read from the source file and write to the destination file
+    while ((bytes_read = fread(buffer, 1, 1024, source_file)) > 0) {
+        fwrite(buffer, 1, bytes_read, destination_file);
+    }
+
+    // Close files
+    fclose(source_file);
+    fclose(destination_file);
+
+    printf("File content transferred successfully.\n");
+}
 
 void binaryToAscii(const char* binaryString, char* asciiString) {
     int length = strlen(binaryString);
@@ -83,7 +114,7 @@ void binaryToAscii(const char* binaryString, char* asciiString) {
     }
 }
 
-void encode(char* filename, table huff) {
+void encode(char* filename, table huff, char* filedes) {
     FILE* fFile, * Encode, * Result;
     tAddress ptrtree;
 
@@ -103,7 +134,7 @@ void encode(char* filename, table huff) {
     }
 
     // Open the output file in binary write mode
-    Result = fopen("hasil.txt", "w");
+    Result = fopen(filedes, "ab");
     if (Result == NULL) {
         printf("GAGAL MEMUAT FILE2!");
         fclose(fFile);
@@ -114,6 +145,7 @@ void encode(char* filename, table huff) {
     unsigned char buffer = 0;
     int bitCount = 0;
     int frequent = 0;
+    int padding = 0;
     uint32_t num;
 
     // Read the input file byte by byte
@@ -146,28 +178,33 @@ void encode(char* filename, table huff) {
 
     // Write any remaining bits (if any)
     if (bitCount > 0) {
+        padding = bitCount;
         buffer <<= (8 - bitCount);
         fwrite(&buffer, sizeof(unsigned char), 1, Encode);
     }
-    num = (uint32_t)frequent;
-    char freqc1[5]; // Ukuran diubah menjadi 5
-    intToAscii(num, freqc1);
-    printf("%s", freqc1);
-    int i = 0;
-    while (i < 4) {
-        printf("%c", freqc1[i]);
-        i++;
-    }
-    i = 0;
-    while (i < 4) {
-        fprintf(Result, "%c", freqc1[i]);
-        i++;
-    }
-    
-    printf("%d", num);
+    fprintf(Result, "||%c", padding);
+
+    printf("%d\n", padding);
+
+
     // Close the files
     fclose(fFile);
     fclose(Encode);
     fclose(Result);
-    
+    tambahkan_isi_file(filedes, "dummy.txt");
+
+    FILE* budi = fopen(filedes, "rb");
+    if (budi == NULL) {
+        printf("GAGAL MEMUAT FILE!");
+        exit(1);
+    }
+
+    char a;
+    while (fscanf(budi, "%c", &a) == 1) {
+        if (fscanf(budi, "||%c", &a) == 1) {
+            printf("%d", a);
+        }
+    }
+
+    fclose(budi);
 }
