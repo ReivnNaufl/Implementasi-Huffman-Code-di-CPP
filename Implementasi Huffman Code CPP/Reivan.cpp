@@ -348,7 +348,6 @@ char* fprintHeader(char* filename, nAddress head) {
 	for (int i = 0; i < 4; i++) {
 		fprintf(fResult, "%c", countByte[i]);
 	}
-	printf("%d\n", count);
 	
 	fprintPreOrder(head, fResult);
 
@@ -376,10 +375,42 @@ void fprintPreOrder(nAddress head, FILE* filename) {
 	fprintPreOrder(right(head), filename);
 }
 
-nAddress construxtTree(char* filename) {
+nAddress constructTree(char* filename) {
+	FILE* file;
+	nAddress head;
+	file = fopen(filename, "rb");
+	if (file == NULL) {
+		printf("GAGAL MEMUAT FILE");
+		exit(1);
+	}
 
+	for (int i = 0; i < 4; i++) {
+		fgetc(file);
+	}
+
+	head = readTree(file);
+
+	fclose(file);
+
+	return head;
 }
 
-nAddress readTree(FILE* file, int until, int* count) {
+nAddress readTree(FILE* file) {
+	unsigned char byte, marker;
+	nAddress node;
 
+	byte = fgetc(file);
+	marker = fgetc(file);
+	node = createNode(byte);
+
+	if (marker == 0x01) {
+		return node;
+	}
+	else {
+		left(node) = readTree(file);
+
+		right(node) = readTree(file);
+
+		return node;
+	}
 }

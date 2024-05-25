@@ -46,5 +46,5 @@ void fprintPreOrder(nAddress head, FILE* filename);
 
 nAddress constructTree(char* filename);
 
-nAddress readTree(FILE* file, int until, int* count);
+nAddress readTree(FILE* file);
 #endif
