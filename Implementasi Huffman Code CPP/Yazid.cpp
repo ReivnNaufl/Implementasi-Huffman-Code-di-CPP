@@ -36,11 +36,15 @@ void intToAscii(uint32_t num, char* ascii) {
 }
 
 
-void asciiToInt(char* ascii, uint32_t* num) {
-    *num = 0;
-    for (int i = 0; i < 4; i++) {
-        *num |= ((uint32_t)ascii[i] & 0xFF) << ((3 - i) * 8);
-    }
+uint32_t asciiToInt(const char* ascii) {
+    // Konversi setiap byte ASCII ke nilai numerik
+    uint32_t num = 0;
+    num |= ((uint32_t)ascii[0] << 24);
+    num |= ((uint32_t)ascii[1] << 16);
+    num |= ((uint32_t)ascii[2] << 8);
+    num |= ((uint32_t)ascii[3]);
+
+    return num;
 }
 
 void tambahkan_isi_file(const char* nama_file_a, const char* nama_file_b) {
@@ -209,7 +213,7 @@ void encode(char* filename, table huff, char* filedes) {
     fclose(budi);
 }
 
-void baca4byte(const char* filename, unsigned char buffer[4]) {
+void baca4byte(const char* filename, char buffer[4]) {
     FILE* file = fopen(filename, "rb");
     if (file == NULL) {
         perror("Error opening file");
@@ -217,7 +221,7 @@ void baca4byte(const char* filename, unsigned char buffer[4]) {
     }
 
     // Read four bytes from the file into the buffer
-    size_t bytesRead = fread(buffer, sizeof(unsigned char), 4, file);
+    size_t bytesRead = fread(buffer, sizeof(char), 4, file);
     if (bytesRead != 4) {
         perror("Error reading from file");
     }

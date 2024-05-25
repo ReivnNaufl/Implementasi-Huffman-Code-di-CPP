@@ -5,6 +5,7 @@
 #include "Yazid.h"
 #include<Windows.h>
 #include<stdlib.h>
+#include <stdint.h>
 
 int main() {
     // Step 1: Create a list from the input file
@@ -44,13 +45,13 @@ int main() {
 
     fprintPreOrder(root,tree);
 
-    unsigned char buffer[4];
+     char buffer[4];
 
     baca4byte(hasil, buffer);
-
-    for(int i = 0;i<4;i++){
-    printf("bytes = %x", buffer[i]);
-    }
+    
+    uint32_t num = asciiToInt(buffer);
+    num = num / 2;
+    printf("%d", num);
 
     return 0;
 }
