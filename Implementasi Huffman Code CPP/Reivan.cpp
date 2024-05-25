@@ -373,3 +373,11 @@ void fprintPreOrder(nAddress head, FILE* filename) {
 
 	fprintPreOrder(right(head), filename);
 }
+
+nAddress construxtTree(char* filename) {
+
+}
+
+nAddress readTree(FILE* file, int until, int* count) {
+
+}

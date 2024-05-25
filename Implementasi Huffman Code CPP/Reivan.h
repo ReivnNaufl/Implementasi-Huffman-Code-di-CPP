@@ -44,4 +44,7 @@ void countNodes(nAddress head, int* count);
 
 void fprintPreOrder(nAddress head, FILE* filename);
 
+nAddress constructTree(char* filename);
+
+nAddress readTree(FILE* file, int until, int* count);
 #endif
