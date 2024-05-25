@@ -271,7 +271,7 @@ void decode(char* filename) {
             buffer[bitCount++] = (byteContainer >> (7 - i)) & 1;
 
             // Saat buffer penuh atau saat proses terakhir
-            while (bitCount == 8 || (feof(Deco) && bitCount > 0)) {
+            while (bitCount == 8|| bitCount == (8-padding) || (feof(Deco) && bitCount > 0)) {
                 current = buffer[0] == 0 ? current->left : current->right;
                 // Geser buffer dan kurangi bitCount
                 for (int j = 1; j < bitCount; ++j) {
@@ -285,7 +285,7 @@ void decode(char* filename) {
                     current = root;  
                 }
 
-                if (bitCount == 0 && feof(Deco)) break;
+                
             }
         }
     }
