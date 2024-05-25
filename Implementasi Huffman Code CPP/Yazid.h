@@ -19,4 +19,6 @@ uint32_t asciiToInt(unsigned char* ascii);
 
 void baca4byte(const char* filename,unsigned char buffer[4]);
 
+void decode(char* filename);
+
 #endif

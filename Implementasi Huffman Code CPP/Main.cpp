@@ -57,5 +57,7 @@ int main() {
     printf("\n\n");
     printBinaryTree(root1);
 
+    decode(hasil);
+
     return 0;
 }

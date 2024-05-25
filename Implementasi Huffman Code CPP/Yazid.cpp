@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "Reivan.h"
+#include "Rindi.h"
 
 int binerKeDesimal(const char* biner) {
     int desimal = 0;
@@ -76,7 +77,8 @@ void tambahkan_isi_file(const char* nama_file_a, const char* nama_file_b) {
     fclose(source_file);
     fclose(destination_file);
 
-    printf("File content transferred successfully.\n");
+    if (remove(nama_file_b) == 1) {
+    }
 }
 
 void binaryToAscii(const char* binaryString, char* asciiString) {
@@ -186,7 +188,7 @@ void encode(char* filename, table huff, char* filedes) {
         buffer <<= (8 - bitCount);
         fwrite(&buffer, sizeof(unsigned char), 1, Encode);
     }
-    fprintf(Result, "||%c", padding);
+    fprintf(Result, "%c", padding);
 
     printf("%d\n", padding);
 
@@ -197,20 +199,22 @@ void encode(char* filename, table huff, char* filedes) {
     fclose(Result);
     tambahkan_isi_file(filedes, "dummy.txt");
 
+    /*
     FILE* budi = fopen(filedes, "rb");
     if (budi == NULL) {
         printf("GAGAL MEMUAT FILE!");
         exit(1);
     }
-    /*
+   
     char a;
     while (fscanf(budi, "%c", &a) == 1) {
-        if (fscanf(budi, "||%c", &a) == 1) {
+        if (fscanf(budi, "%c||", &a) == 1) {
             printf("%d\n", a);
         }
     }
-    */
+    
     fclose(budi);
+    */
 }
 
 void baca4byte(const char* filename,unsigned char buffer[4]) {
@@ -228,4 +232,57 @@ void baca4byte(const char* filename,unsigned char buffer[4]) {
 
     // Close the file
     fclose(file);
+}
+
+void decode(char* filename) {
+    FILE* Deco = fopen(filename, "rb");
+    if (Deco == NULL) {
+        perror("Error opening file");
+        return;
+    }
+    FILE* result = fopen("decode.bmp", "wb");
+    if (Deco == NULL) {
+        perror("Error opening file");
+        return;
+    }
+    unsigned char size[4];
+    baca4byte(filename, size);
+    uint32_t nsize = asciiToInt(size);
+    printf("%d", nsize);
+    nAddress root = constructTree(filename);
+
+    fseek(Deco, nsize+4, SEEK_CUR);
+    unsigned char d = fgetc(Deco);
+    int padding = d;
+    printf("%d", padding);
+    unsigned char byteContainer;
+    unsigned char buffer[8];
+    int bitCount = 0;
+
+    while (fread(&byteContainer, sizeof(unsigned char), 1, Deco)) {
+        if (feof(Deco)) {
+            byteContainer >>= (8 - padding);
+        }
+        for (int i = 0; i < 8; ++i) {
+            buffer[bitCount++] = (byteContainer >> (7 - i)) & 1;
+            if (bitCount == 8) {
+                // Kumpulkan 8 bit dan dekode
+                nAddress current = root;
+                for (int j = 0; j < 8; ++j) {
+                    if (buffer[j] == 0) {
+                        current = current->left;
+                    }
+                    else {
+                        current = current->right;
+                    }
+                    if (current->left == NULL && current->right == NULL) {
+                        fprintf(result,"%c", current->info);
+                        current = root;
+                    }
+                }
+                bitCount = 0;
+            }
+        }
+    }
+    fclose(Deco);
 }
