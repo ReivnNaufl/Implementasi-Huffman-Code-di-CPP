@@ -318,6 +318,7 @@ void countNodes(nAddress head, int* count) {
 	countNodes(head->left, *&count);
 
 	countNodes(head->right, *&count);
+
 }
 
 char* fprintHeader(char* filename, nAddress head) {
@@ -347,7 +348,8 @@ char* fprintHeader(char* filename, nAddress head) {
 	for (int i = 0; i < 4; i++) {
 		fprintf(fResult, "%c", countByte[i]);
 	}
-
+	printf("%d\n", count);
+	
 	fprintPreOrder(head, fResult);
 
 	fclose(fResult);

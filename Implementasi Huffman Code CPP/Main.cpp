@@ -5,10 +5,11 @@
 #include "Yazid.h"
 #include<Windows.h>
 #include<stdlib.h>
+#include <stdint.h>
 
 int main() {
     // Step 1: Create a list from the input file
-    qAddress head = createList((char*)"INPUT/Untuk-di-encode/test2.bmp");
+    qAddress head = createList((char*)"INPUT/Untuk-di-encode/testp.bmp");
     printf("Initial list:\n");
     printList(head);
 
@@ -36,9 +37,9 @@ int main() {
     printf("Huffman Codes:\n");
     printCodes(codeTable.next);
 
-    char* hasil = fprintHeader((char*)"test2.bmp", root);
+    char* hasil = fprintHeader((char*)"testp.bmp", root);
 
-    encode((char*)"INPUT/Untuk-di-encode/test2.bmp", codeTable,hasil);
+    encode((char*)"INPUT/Untuk-di-encode/testp.bmp", codeTable,hasil);
 
     FILE* tree = fopen("tree.txt", "wb");
 
@@ -47,10 +48,10 @@ int main() {
     unsigned char buffer[4];
 
     baca4byte(hasil, buffer);
+    
+    uint32_t num = asciiToInt(buffer);
 
-    for(int i = 0;i<4;i++){
-    printf("bytes = %x", buffer[i]);
-    }
+    printf("%d", num );
 
     return 0;
 }
