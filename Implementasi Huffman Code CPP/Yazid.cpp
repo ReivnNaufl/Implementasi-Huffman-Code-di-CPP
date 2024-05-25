@@ -259,28 +259,33 @@ void decode(char* filename) {
     unsigned char buffer[8];
     int bitCount = 0;
 
+    nAddress current = root;  
+
     while (fread(&byteContainer, sizeof(unsigned char), 1, Deco)) {
+        // Jika mencapai akhir file, proses bit yang tersisa
         if (feof(Deco)) {
             byteContainer >>= (8 - padding);
         }
+
         for (int i = 0; i < 8; ++i) {
             buffer[bitCount++] = (byteContainer >> (7 - i)) & 1;
-            if (bitCount == 8) {
-                // Kumpulkan 8 bit dan dekode
-                nAddress current = root;
-                for (int j = 0; j < 8; ++j) {
-                    if (buffer[j] == 0) {
-                        current = current->left;
-                    }
-                    else {
-                        current = current->right;
-                    }
-                    if (current->left == NULL && current->right == NULL) {
-                        fprintf(result,"%c", current->info);
-                        current = root;
-                    }
+
+            // Saat buffer penuh atau saat proses terakhir
+            while (bitCount == 8 || (feof(Deco) && bitCount > 0)) {
+                current = buffer[0] == 0 ? current->left : current->right;
+                // Geser buffer dan kurangi bitCount
+                for (int j = 1; j < bitCount; ++j) {
+                    buffer[j - 1] = buffer[j];
                 }
-                bitCount = 0;
+                bitCount--;
+
+                // Jika mencapai leaf node
+                if (current->left == NULL && current->right == NULL) {
+                    fprintf(result, "%c", current->info);
+                    current = root;  
+                }
+
+                if (bitCount == 0 && feof(Deco)) break;
             }
         }
     }
