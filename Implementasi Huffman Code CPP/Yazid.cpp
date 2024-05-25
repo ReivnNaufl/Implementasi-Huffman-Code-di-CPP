@@ -202,9 +202,26 @@ void encode(char* filename, table huff, char* filedes) {
     char a;
     while (fscanf(budi, "%c", &a) == 1) {
         if (fscanf(budi, "||%c", &a) == 1) {
-            printf("%d", a);
+            printf("%d\n", a);
         }
     }
 
     fclose(budi);
+}
+
+void baca4byte(const char* filename, unsigned char buffer[4]) {
+    FILE* file = fopen(filename, "rb");
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    // Read four bytes from the file into the buffer
+    size_t bytesRead = fread(buffer, sizeof(unsigned char), 4, file);
+    if (bytesRead != 4) {
+        perror("Error reading from file");
+    }
+
+    // Close the file
+    fclose(file);
 }

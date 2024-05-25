@@ -40,7 +40,17 @@ int main() {
 
     encode((char*)"INPUT/Untuk-di-encode/test2.bmp", codeTable,hasil);
 
-   
+    FILE* tree = fopen("tree.txt", "wb");
+
+    fprintPreOrder(root,tree);
+
+    unsigned char buffer[4];
+
+    baca4byte(hasil, buffer);
+
+    for(int i = 0;i<4;i++){
+    printf("bytes = %x", buffer[i]);
+    }
 
     return 0;
 }
