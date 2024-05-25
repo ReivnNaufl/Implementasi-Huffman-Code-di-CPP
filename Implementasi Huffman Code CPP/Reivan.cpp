@@ -325,7 +325,8 @@ char* fprintHeader(char* filename, nAddress head) {
 	char* resultPath = (char*) malloc(sizeof(filename) + 10 + (sizeof(char) * 18));
 	char* file = (char*) malloc(sizeof(filename));
 	char countByte[5];
-	int count = 0;
+	int count = 0, exCounter = 0, i = 0;
+	unsigned char extension[7];
 	FILE* fResult;
 
 	if ((resultPath == NULL) || (file == NULL)) {
@@ -343,9 +344,21 @@ char* fprintHeader(char* filename, nAddress head) {
 		exit(1);
 	}
 
+	file = strtok(NULL, ".");
+	for (i = 0; i < strlen(file); i++) {
+		extension[i] = file[i];
+		fprintf(fResult, "%c", extension[i]);
+		exCounter++;
+	}
+
+	while (exCounter < 7) {
+		fprintf(fResult, "%c", 0x00);
+		exCounter++;
+	}
+	
 	countNodes(head, &count);
 	intToAscii((count * 2), countByte);
-	for (int i = 0; i < 4; i++) {
+	for (i = 0; i < 4; i++) {
 		fprintf(fResult, "%c", countByte[i]);
 	}
 	
@@ -384,7 +397,7 @@ nAddress constructTree(char* filename) {
 		exit(1);
 	}
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 11; i++) {
 		fgetc(file);
 	}
 
@@ -413,4 +426,30 @@ nAddress readTree(FILE* file) {
 
 		return node;
 	}
+}
+
+char* fileFromPath(char* path) {
+	char* result = (char*)malloc(sizeof(path));
+	if (result == NULL) {
+		printf("ALOKASI MEMORI GAGAL!!");
+		exit(1);
+	}
+
+	result = strtok(path, "/");
+	result = strtok(NULL, "/");
+	result = strtok(NULL, "/");
+
+	return result;
+}
+
+char* fileWithoutExtension(char* file) {
+	char* result = (char*)malloc(sizeof(file));
+	if (result == NULL) {
+		printf("ALOKASI MEMORI GAGAL!!");
+		exit(1);
+	}
+
+	result = strtok(file, ".");
+
+	return result;
 }

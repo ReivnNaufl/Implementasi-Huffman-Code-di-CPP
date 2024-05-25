@@ -47,4 +47,9 @@ void fprintPreOrder(nAddress head, FILE* filename);
 nAddress constructTree(char* filename);
 
 nAddress readTree(FILE* file);
+
+char* fileFromPath(char* path);
+
+char* fileWithoutExtension(char* file);
+
 #endif
