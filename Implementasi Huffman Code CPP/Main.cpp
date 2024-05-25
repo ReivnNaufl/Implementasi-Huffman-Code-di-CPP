@@ -9,7 +9,7 @@
 
 int main() {
     // Step 1: Create a list from the input file
-    qAddress head = createList((char*)"INPUT/Untuk-di-encode/test2.bmp");
+    qAddress head = createList((char*)"INPUT/Untuk-di-encode/testp.bmp");
     printf("Initial list:\n");
     printList(head);
 
@@ -37,21 +37,21 @@ int main() {
     printf("Huffman Codes:\n");
     printCodes(codeTable.next);
 
-    char* hasil = fprintHeader((char*)"test2.bmp", root);
+    char* hasil = fprintHeader((char*)"testp.bmp", root);
 
-    encode((char*)"INPUT/Untuk-di-encode/test2.bmp", codeTable,hasil);
+    encode((char*)"INPUT/Untuk-di-encode/testp.bmp", codeTable,hasil);
 
     FILE* tree = fopen("tree.txt", "wb");
 
     fprintPreOrder(root,tree);
 
-     char buffer[4];
+    unsigned char buffer[4];
 
     baca4byte(hasil, buffer);
     
     uint32_t num = asciiToInt(buffer);
-    num = num / 2;
-    printf("%d", num);
+
+    printf("%d", num );
 
     return 0;
 }

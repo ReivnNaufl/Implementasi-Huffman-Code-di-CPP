@@ -15,8 +15,8 @@ void binaryToAscii(const char* binaryString, char* asciiString);
 
 void intToAscii(uint32_t num, char* ascii);
 
-uint32_t asciiToInt(const char* ascii);
+uint32_t asciiToInt(unsigned char* ascii);
 
-void baca4byte(const char* filename, char buffer[4]);
+void baca4byte(const char* filename,unsigned char buffer[4]);
 
 #endif
