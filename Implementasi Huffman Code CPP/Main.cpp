@@ -6,11 +6,83 @@
 #include <Windows.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <conio.h>
+
 
 
 int main() {
+    char fileName[256], filePath[256], code[100], *encodedPath;
+    int choice = 0;
+    qAddress head = NULL;
+    nAddress root = NULL;
+    table codeTable;
+    codeTable.next = NULL;
+
+    for (;;) {
+        system("cls");
+        choice = mainMenu();
+        switch (choice) 
+        {
+            case 1:
+                system("cls");
+                printf("Masukan nama file (dengan ekstensi) yang akan di encode: ");
+                scanf(" %s", fileName);
+                sprintf(filePath, "INPUT/Untuk-di-encode/%s", fileName);
+                system("cls");
+
+                head = createList(filePath);
+                mergeSort(&head);
+
+                root = buildHuffmanTree(&head);
+                printf("Huffman Tree:\n");
+                printBinaryTree(root);
+
+                generateCodes(root, code, 0, &codeTable);
+                printf("Huffman Codes:\n");
+                printCodes(codeTable.next);
+
+                encodedPath = fprintHeader(fileName, root);
+
+                encode(filePath, codeTable, encodedPath);
+
+                //compare here
+
+                printf("Tekan tombol apapun untuk melanjutkan ");
+                getch();
+
+                system("cls");
+
+                //dealloc table and tree here
+                root = NULL;
+                codeTable.next = NULL;
+
+                break;
+            case 2:
+                system("cls");
+                printf("Masukan nama file (dengan ekstensi) yang akan di decode: ");
+                scanf(" %s", fileName);
+                sprintf(filePath, "INPUT/Untuk-di-decode/%s", fileName);
+                system("cls");
+
+                decode(filePath);
+
+                printf("Decode selesai!\n\n");
+                printf("Tekan tombol apapun untuk melanjutkan ");
+                getch();
+
+                break;
+            case 3:
+                return 0;
+            case 4:
+                break;
+        }
+    }
+}
+
+/*
+int main() {
     // Step 1: Create a list from the input file
-    qAddress head = createList((char*)"INPUT/Untuk-di-encode/test2.bmp");
+    qAddress head = createList((char*)"INPUT/Untuk-di-encode/classic.bmp");
     printf("Initial list:\n");
     printList(head);
 
@@ -38,9 +110,9 @@ int main() {
     printf("Huffman Codes:\n");
     printCodes(codeTable.next);
 
-    char* hasil = fprintHeader((char*)"test2.bmp", root);
+    char* hasil = fprintHeader((char*)"classic.bmp", root);
 
-    encode((char*)"INPUT/Untuk-di-encode/test2.bmp", codeTable,hasil);
+    encode((char*)"INPUT/Untuk-di-encode/classic.bmp", codeTable,hasil);
 
     FILE* tree = fopen("tree.txt", "wb");
 
@@ -58,7 +130,9 @@ int main() {
     printf("\n\n");
     printBinaryTree(root1);
 
-    decode((char*)"OUTPUT/Hasil-encode/test2.txt");
+    decode(hasil);
 
     return 0;
 }
+
+*/

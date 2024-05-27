@@ -321,6 +321,7 @@ void decode(char* filename) {
         }
     }
     fclose(Deco);
+    fclose(result);
 }
 
 void bacaformat(const char* filename, char format[7]) {

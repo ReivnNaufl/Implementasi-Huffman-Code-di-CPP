@@ -31,13 +31,13 @@ void mergeSort(qAddress* head);
 //Procedure untuk memecah queue menjadi 2
 void splitList(qAddress src, qAddress* lList, qAddress* rList);
 
-//Functionuntuk manggabungkan 2 queue secara sorted ascending berdasarkan freq dan byte
+//Function untuk manggabungkan 2 queue secara sorted ascending berdasarkan freq dan byte
 qAddress merge(qAddress lSubList, qAddress rSubList);
 
+//Function untuk menampilkan main menu dan mereturn pilihan
 int mainMenu();
 
-int encodeMenu();
-
+//Print eks
 char* fprintHeader(char* filename, nAddress head);
 
 void countNodes(nAddress head, int* count);
@@ -47,9 +47,5 @@ void fprintPreOrder(nAddress head, FILE* filename);
 nAddress constructTree(char* filename);
 
 nAddress readTree(FILE* file);
-
-char* fileFromPath(char* path);
-
-char* fileWithoutExtension(char* file);
 
 #endif

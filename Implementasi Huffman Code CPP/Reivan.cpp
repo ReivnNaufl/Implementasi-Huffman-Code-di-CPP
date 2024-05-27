@@ -267,47 +267,6 @@ int mainMenu() {
 	}
 }
 
-int encodeMenu() {
-	int cursor = 1, input;
-
-	for (;;) {
-		system("cls");
-		printf("==========================================\n");
-		printf("                   Encode                 \n");
-		printf("==========================================\n");
-		printf("%c Compare Hasil Encode\n", (cursor == 1) ? '>' : ' ');
-		printf("%c Print Tree\n", (cursor == 2) ? '>' : ' ');
-		printf("%c Return\n", (cursor == 3) ? '>' : ' ');
-
-		input = getch();
-
-		switch (input)
-		{
-		case 72:
-			if (cursor <= 1) {
-				cursor = 3;
-			}
-			else {
-				cursor--;
-			}
-			break;
-		case 80:
-			if (cursor >= 3) {
-				cursor = 1;
-			}
-			else {
-				cursor++;
-			}
-			break;
-		case 13:
-			return cursor;
-			break;
-		default:
-			break;
-		}
-	}
-}
-
 void countNodes(nAddress head, int* count) {
 	if (head == NULL) {
 		return;
@@ -426,30 +385,4 @@ nAddress readTree(FILE* file) {
 
 		return node;
 	}
-}
-
-char* fileFromPath(char* path) {
-	char* result = (char*)malloc(sizeof(path));
-	if (result == NULL) {
-		printf("ALOKASI MEMORI GAGAL!!");
-		exit(1);
-	}
-
-	result = strtok(path, "/");
-	result = strtok(NULL, "/");
-	result = strtok(NULL, "/");
-
-	return result;
-}
-
-char* fileWithoutExtension(char* file) {
-	char* result = (char*)malloc(sizeof(file));
-	if (result == NULL) {
-		printf("ALOKASI MEMORI GAGAL!!");
-		exit(1);
-	}
-
-	result = strtok(file, ".");
-
-	return result;
 }
