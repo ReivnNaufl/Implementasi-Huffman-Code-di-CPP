@@ -21,4 +21,8 @@ void baca4byte(const char* filename,unsigned char buffer[4]);
 
 void decode(char* filename);
 
+void bacaformat(const char* filename, char format[7]);
+
+void ambilnama(const char* path, char* output);
+
 #endif

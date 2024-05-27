@@ -224,6 +224,7 @@ void baca4byte(const char* filename,unsigned char buffer[4]) {
         return;
     }
 
+    fseek(file, 7, SEEK_CUR);
     // Read four bytes from the file into the buffer
     size_t bytesRead = fread(buffer, sizeof(unsigned char), 4, file);
     if (bytesRead != 4) {
@@ -234,14 +235,44 @@ void baca4byte(const char* filename,unsigned char buffer[4]) {
     fclose(file);
 }
 
+void ambilnama(const char* path, char* output) {
+    const char* filename_with_ext = strrchr(path, '/');
+    if (filename_with_ext != NULL) {
+        filename_with_ext++;
+    }
+    else {
+        filename_with_ext = path;
+    }
+
+    const char* dot = strrchr(filename_with_ext, '.');
+    if (dot != NULL) {
+        size_t len = dot - filename_with_ext;
+        strncpy(output, filename_with_ext, len);
+        output[len] = '\0';
+    }
+    else {
+        strncpy(output, filename_with_ext, 255);
+        output[255] = '\0';
+    }
+}
+
+
 void decode(char* filename) {
     FILE* Deco = fopen(filename, "rb");
     if (Deco == NULL) {
         perror("Error opening file");
         return;
     }
-    FILE* result = fopen("decode.bmp", "wb");
-    if (Deco == NULL) {
+    char path[255];
+    char format[7] = { 0 };  // Initialize format to ensure null-termination
+    char namafile[255];
+
+    bacaformat(filename, format);
+    ambilnama(filename, namafile);
+    sprintf(path, "OUTPUT/Hasil-decode/%s.%s", namafile, format);
+
+    FILE* result = fopen(path, "wb");
+    if (result == NULL) {
         perror("Error opening file");
         return;
     }
@@ -251,7 +282,7 @@ void decode(char* filename) {
     printf("%d", nsize);
     nAddress root = constructTree(filename);
 
-    fseek(Deco, nsize+4, SEEK_CUR);
+    fseek(Deco, nsize+4+7, SEEK_CUR);
     unsigned char d = fgetc(Deco);
     int padding = d;
     printf("%d", padding);
@@ -290,4 +321,22 @@ void decode(char* filename) {
         }
     }
     fclose(Deco);
+}
+
+void bacaformat(const char* filename, char format[7]) {
+    FILE* baca = fopen(filename, "rb");
+    if (baca == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    for (int i = 0; i < 7; i++) {
+        int c = fgetc(baca);
+        if (c == EOF) {
+            format[i] = '\0';
+            break;
+        }
+        format[i] = (char)c;
+    }
+    fclose(baca);
 }

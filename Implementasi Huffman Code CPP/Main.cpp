@@ -3,9 +3,10 @@
 #include "Reivan.h"
 #include "Rindi.h"
 #include "Yazid.h"
-#include<Windows.h>
-#include<stdlib.h>
+#include <Windows.h>
+#include <stdlib.h>
 #include <stdint.h>
+
 
 int main() {
     // Step 1: Create a list from the input file
@@ -57,7 +58,7 @@ int main() {
     printf("\n\n");
     printBinaryTree(root1);
 
-    decode(hasil);
+    decode((char*)"OUTPUT/Hasil-encode/test2.txt");
 
     return 0;
 }
