@@ -48,4 +48,6 @@ nAddress constructTree(char* filename);
 
 nAddress readTree(FILE* file);
 
+void compare(char* fileA, char* fileB);
+
 #endif

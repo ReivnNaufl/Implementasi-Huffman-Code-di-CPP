@@ -386,3 +386,29 @@ nAddress readTree(FILE* file) {
 		return node;
 	}
 }
+
+void compare(char* fileA, char* fileB) {
+	FILE* fA, * fB;
+	long int sizeA, sizeB, diff;
+	float percent;
+
+	fA = fopen(fileA, "rb");
+	fB = fopen(fileB, "rb");
+	if ((fA == NULL) || (fB == NULL)) {
+		printf("GAGAL MEMUAT FILE!!");
+		exit(1);
+	}
+
+	fseek(fA, 0, SEEK_END);
+	sizeA = ftell(fA);
+
+	fseek(fB, 0, SEEK_END);
+	sizeB = ftell(fB);
+
+	diff = sizeA - sizeB;
+	percent = ((float)diff / (float)sizeA) * 100;
+
+	printf("\nBesar file original : %ld bytes\n", sizeA);
+	printf("Besar file hasil encoding : %ld bytes\n", sizeB);
+	printf("Besar yang terkompresi adalah %ld bytes atau sebesar %.2f %%\n\n", diff, percent);
+}

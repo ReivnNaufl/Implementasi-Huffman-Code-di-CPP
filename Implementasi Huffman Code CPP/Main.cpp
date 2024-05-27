@@ -45,7 +45,7 @@ int main() {
 
                 encode(filePath, codeTable, encodedPath);
 
-                //compare here
+                compare(filePath, encodedPath);
 
                 printf("Tekan tombol apapun untuk melanjutkan ");
                 getch();
