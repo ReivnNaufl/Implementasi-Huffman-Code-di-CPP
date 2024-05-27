@@ -37,17 +37,22 @@ qAddress merge(qAddress lSubList, qAddress rSubList);
 //Function untuk menampilkan main menu dan mereturn pilihan
 int mainMenu();
 
-//Print eks
+//Print ekstensi file, panjang byte tree, dan tree ke awal file encoded
 char* fprintHeader(char* filename, nAddress head);
 
+//Procedure untuk menghitung node tree
 void countNodes(nAddress head, int* count);
 
+//Print tree ke file dengan preorder traversal
 void fprintPreOrder(nAddress head, FILE* filename);
 
+//Function untuk membuat tree dari header file
 nAddress constructTree(char* filename);
 
+//Function pembantu construct tree
 nAddress readTree(FILE* file);
 
+//Procedure untuk membandingkan besar dari 2 file
 void compare(char* fileA, char* fileB);
 
 #endif

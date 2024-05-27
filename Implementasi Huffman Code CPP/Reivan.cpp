@@ -226,6 +226,7 @@ qAddress merge(qAddress lSubList, qAddress rSubList) {
 	return merged;
 }
 
+//Function untuk menampilkan main menu dan mereturn pilihan
 int mainMenu() {
 	int cursor = 1, input;
 
@@ -242,7 +243,7 @@ int mainMenu() {
 
 		switch (input)
 		{
-		case 72:
+		case 72://up arrow key
 			if (cursor <= 1) {
 				cursor = 3;
 			}
@@ -250,7 +251,7 @@ int mainMenu() {
 				cursor--;
 			}
 			break;
-		case 80:
+		case 80://down arrow key
 			if (cursor >= 3) {
 				cursor = 1;
 			}
@@ -258,7 +259,7 @@ int mainMenu() {
 				cursor++;
 			}
 			break;
-		case 13:
+		case 13://enter key
 			return cursor;
 			break;
 		default:
@@ -267,16 +268,17 @@ int mainMenu() {
 	}
 }
 
+//Procedure untuk menghitung node tree
 void countNodes(nAddress head, int* count) {
-	if (head == NULL) {
+	if (head == NULL) {//base case
 		return;
 	}
 
-	*count += 1;
+	*count += 1;//increment count
 
-	countNodes(head->left, *&count);
+	countNodes(head->left, *&count);//treverse left child
 
-	countNodes(head->right, *&count);
+	countNodes(head->right, *&count);//traverse right chiled
 
 }
 
@@ -288,11 +290,12 @@ char* fprintHeader(char* filename, nAddress head) {
 	unsigned char extension[7];
 	FILE* fResult;
 
-	if ((resultPath == NULL) || (file == NULL)) {
+	if ((resultPath == NULL) || (file == NULL)) {//cek malloc
 		printf("ALOKASI MEMORI GAGAL!!");
 		exit(1);
 	}
 
+	//Buat path file untuk hasil encoding
 	strcpy(file, filename);
 	file = strtok(file, ".");
 	sprintf(resultPath, "OUTPUT/Hasil-encode/%s.txt", file);
@@ -303,6 +306,7 @@ char* fprintHeader(char* filename, nAddress head) {
 		exit(1);
 	}
 
+	//simpan ekstensi file
 	file = strtok(NULL, ".");
 	for (i = 0; i < strlen(file); i++) {
 		extension[i] = file[i];
@@ -310,31 +314,37 @@ char* fprintHeader(char* filename, nAddress head) {
 		exCounter++;
 	}
 
+	//jika ekstensi file kurang dari 7 print byte 00 hingga panjang byte 7
 	while (exCounter < 7) {
 		fprintf(fResult, "%c", 0x00);
 		exCounter++;
 	}
 	
+	//simpan oanjang byte tree
 	countNodes(head, &count);
 	intToAscii((count * 2), countByte);
 	for (i = 0; i < 4; i++) {
 		fprintf(fResult, "%c", countByte[i]);
 	}
 	
+	//simpan tree
 	fprintPreOrder(head, fResult);
 
 	fclose(fResult);
 
+	//return path file hasil encoding
 	return resultPath;
 }
 
+//Print tree ke file dengan preorder traversal
 void fprintPreOrder(nAddress head, FILE* filename) {
-	if (head == NULL) {
+	if (head == NULL) {//base case
 		return;
 	}
 
-	fprintf(filename, "%c", info(head));
+	fprintf(filename, "%c", info(head));//simpan byte ke file
 
+	//simpan byte penanda branch atau leaf
 	if (left(head) == NULL) {
 		fprintf(filename, "%c",(unsigned char) 0x01);
 	}
@@ -342,51 +352,56 @@ void fprintPreOrder(nAddress head, FILE* filename) {
 		fprintf(filename, "%c",(unsigned char) 0x00);
 	}
 
-	fprintPreOrder(left(head), filename);
+	fprintPreOrder(left(head), filename);//traverse left child
 
-	fprintPreOrder(right(head), filename);
+	fprintPreOrder(right(head), filename);//traverse right child
 }
 
+//Function untuk membuat tree dari header file
 nAddress constructTree(char* filename) {
 	FILE* file;
 	nAddress head;
+
 	file = fopen(filename, "rb");
 	if (file == NULL) {
 		printf("GAGAL MEMUAT FILE");
 		exit(1);
 	}
 
+	//skip ke bagian tree
 	for (int i = 0; i < 11; i++) {
 		fgetc(file);
 	}
 
-	head = readTree(file);
+	head = readTree(file);//baca dan buat tree
 
 	fclose(file);
 
 	return head;
 }
 
+//Function pembantu construct tree
 nAddress readTree(FILE* file) {
 	unsigned char byte, marker;
 	nAddress node;
 
-	byte = fgetc(file);
-	marker = fgetc(file);
-	node = createNode(byte);
+	byte = fgetc(file);//baca info
+	marker = fgetc(file);//baca penanda branch atau leaf
+	node = createNode(byte);//buat node
 
-	if (marker == 0x01) {
+	if (marker == 0x01) {//base case
 		return node;
 	}
 	else {
-		left(node) = readTree(file);
+		left(node) = readTree(file);//construct left child
 
-		right(node) = readTree(file);
+		right(node) = readTree(file);//construct right child
 
 		return node;
 	}
 }
 
+//Procedure untuk membandingkan besar dari 2 file
 void compare(char* fileA, char* fileB) {
 	FILE* fA, * fB;
 	long int sizeA, sizeB, diff;
@@ -399,14 +414,14 @@ void compare(char* fileA, char* fileB) {
 		exit(1);
 	}
 
+	//skip ke akhir file dan baca posisi pointer file
 	fseek(fA, 0, SEEK_END);
 	sizeA = ftell(fA);
-
 	fseek(fB, 0, SEEK_END);
 	sizeB = ftell(fB);
 
-	diff = sizeA - sizeB;
-	percent = ((float)diff / (float)sizeA) * 100;
+	diff = sizeA - sizeB;//hitung selisih
+	percent = ((float)diff / (float)sizeA) * 100;//hitung persen
 
 	printf("\nBesar file original : %ld bytes\n", sizeA);
 	printf("Besar file hasil encoding : %ld bytes\n", sizeB);
