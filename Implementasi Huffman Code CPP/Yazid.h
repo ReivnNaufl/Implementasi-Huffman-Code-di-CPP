@@ -1,3 +1,15 @@
+/*	
+Program		: Yazid.h
+Deskripsi	: Header untuk ...
+Dibuat oleh : Yazid Fauzan Prasatria (231511032)  
+Kelompok	: 2
+Kelas		: 1A
+Jurusan     : Teknik Komputer dan Informatika
+Prodi       : D3 Teknik Informatika
+Angkatan    : 2023/2024
+Tanggal		: ...
+===============================================*/
+
 #pragma once
 #ifndef Yazid_h
 #define Yazid_h

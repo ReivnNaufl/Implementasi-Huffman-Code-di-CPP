@@ -1,3 +1,18 @@
+/*	
+Program		: Main.cpp
+Deskripsi	: Driver / main program untuk ADT Huffman Code pada kompresi gambar
+Dibuat oleh :
+            - Muhammad Reivan Naufal Mufid 	(231511021) 
+            - Rindi Indriani 		        (231511030) 
+            - Yazid Fauzan Prasatria 		(231511032)
+Kelompok	: 2
+Kelas		: 1A
+Jurusan     : Teknik Komputer dan Informatika
+Prodi       : D3 Teknik Informatika
+Angkatan    : 2023/2024
+Tanggal		: 15 Mei 2023
+===============================================*/
+
 #include <stdio.h>
 #include <ctype.h>
 #include "Reivan.h"
@@ -7,8 +22,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <conio.h>
-
-
 
 int main() {
     char fileName[256], filePath[256], code[100], *encodedPath;
