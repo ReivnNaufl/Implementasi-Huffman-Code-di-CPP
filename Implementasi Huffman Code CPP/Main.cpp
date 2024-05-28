@@ -50,9 +50,17 @@ int main() {
                 printf("Tekan tombol apapun untuk melanjutkan ");
                 getch();
 
-                system("cls");
+                // system("cls");
 
                 //dealloc table and tree here
+                deallocateTree(root);
+                deallocateTable(codeTable.next);
+                free(encodedPath);
+
+                // Print confirmation messages
+                printf("Tree dan table telah didealokasi.\n");
+
+                // Reset pointers
                 root = NULL;
                 codeTable.next = NULL;
 
