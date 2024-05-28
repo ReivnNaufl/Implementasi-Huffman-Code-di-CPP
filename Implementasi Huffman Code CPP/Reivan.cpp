@@ -1,13 +1,14 @@
 /*	
 Program		: Reivan.cpp
-Deskripsi	: Body prototype untuk ...
+Deskripsi	: Body prototype untuk membaca file dan membuat list byte dan frequensinya, sorting list ascending menggunakan merge sort, 
+			  mencetak bagian header encoded file, membaca dan membuat tree dari file, dan function compare size file.
 Dibuat oleh : Muhammad Reivan Naufal Mufid (231511021) 
 Kelompok	: 2
 Kelas		: 1A
 Jurusan     : Teknik Komputer dan Informatika
 Prodi       : D3 Teknik Informatika
 Angkatan    : 2023/2024
-Tanggal		: ...
+Tanggal		: 14 Mei 2024
 ===============================================*/
 
 #include <stdio.h>
@@ -237,48 +238,6 @@ qAddress merge(qAddress lSubList, qAddress rSubList) {
 	//retunr hasil merge dan sort
 	return merged;
 }
-
-// //Function untuk menampilkan main menu dan mereturn pilihan
-// int mainMenu() {
-// 	int cursor = 1, input;
-
-// 	for (;;) {
-// 		system("cls");
-// 		printf("==========================================\n");
-// 		printf("              Huffman Coding              \n");
-// 		printf("==========================================\n");
-// 		printf("%c Encode\n", (cursor == 1) ? '>' : ' ');
-// 		printf("%c Decode\n", (cursor == 2) ? '>' : ' ');
-// 		printf("%c Quit\n", (cursor == 3) ? '>' : ' ');
-
-// 		input = getch();
-
-// 		switch (input)
-// 		{
-// 		case 72://up arrow key
-// 			if (cursor <= 1) {
-// 				cursor = 3;
-// 			}
-// 			else {
-// 				cursor--;
-// 			}
-// 			break;
-// 		case 80://down arrow key
-// 			if (cursor >= 3) {
-// 				cursor = 1;
-// 			}
-// 			else {
-// 				cursor++;
-// 			}
-// 			break;
-// 		case 13://enter key
-// 			return cursor;
-// 			break;
-// 		default:
-// 			break;
-// 		}
-// 	}
-// }
 
 //Procedure untuk menghitung node tree
 void countNodes(nAddress head, int* count) {

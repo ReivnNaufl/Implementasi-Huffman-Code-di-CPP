@@ -1,13 +1,14 @@
-/*	
-Program		: Reivan.h
-Deskripsi	: Header untuk ...
-Dibuat oleh : Muhammad Reivan Naufal Mufid (231511021) 
+/*
+Program		: Reivan.cpp
+Deskripsi	: Header untuk membaca file dan membuat list byte dan frequensinya, sorting list ascending menggunakan merge sort,
+			  mencetak bagian header encoded file, membaca dan membuat tree dari file, dan function compare size file.
+Dibuat oleh : Muhammad Reivan Naufal Mufid (231511021)
 Kelompok	: 2
 Kelas		: 1A
 Jurusan     : Teknik Komputer dan Informatika
 Prodi       : D3 Teknik Informatika
 Angkatan    : 2023/2024
-Tanggal		: ...
+Tanggal		: 14 Mei 2024
 ===============================================*/
 
 #pragma once
@@ -45,9 +46,6 @@ void splitList(qAddress src, qAddress* lList, qAddress* rList);
 
 //Function untuk manggabungkan 2 queue secara sorted ascending berdasarkan freq dan byte
 qAddress merge(qAddress lSubList, qAddress rSubList);
-
-// //Function untuk menampilkan main menu dan mereturn pilihan
-// int mainMenu();
 
 //Print ekstensi file, panjang byte tree, dan tree ke awal file encoded
 char* fprintHeader(char* filename, nAddress head);

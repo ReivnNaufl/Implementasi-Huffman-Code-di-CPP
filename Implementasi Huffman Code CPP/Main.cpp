@@ -33,39 +33,46 @@ int main() {
 
     for (;;) {
         system("cls");
-        choice = mainMenu();
+        choice = mainMenu(); //panggil main menu
         switch (choice) 
         {
-            case 1:
+            case 1://encode
+                //buat yser menginput nama file
                 system("cls");
                 printf("Masukan nama file (dengan ekstensi) yang akan di encode: ");
                 scanf(" %s", fileName);
+
+                //buat path dari nama file
                 sprintf(filePath, "INPUT/Untuk-di-encode/%s", fileName);
                 system("cls");
 
+                //baca file, susun dan sort list
                 head = createList(filePath);
                 mergeSort(&head);
 
+                //biat huffman tree
                 root = buildHuffmanTree(&head);
                 printf("Huffman Tree:\n");
                 printBinaryTree(root);
 
+                //henerate huffman code
                 generateCodes(root, code, 0, &codeTable);
                 printf("Huffman Codes:\n");
                 printCodes(codeTable.next);
 
+                //print bagian header ke encoded file
                 encodedPath = fprintHeader(fileName, root);
 
+                //encode isi file
                 encode(filePath, codeTable, encodedPath);
 
+                //campare size original dan encoded file
                 compare(filePath, encodedPath);
 
                 printf("Tekan tombol apapun untuk melanjutkan ");
                 getch();
 
-                // system("cls");
-
-                //dealloc table and tree here
+                //dealloc table and tree
                 deallocateTree(root);
                 deallocateTable(codeTable.next);
                 free(encodedPath);
@@ -78,13 +85,17 @@ int main() {
                 codeTable.next = NULL;
 
                 break;
-            case 2:
+            case 2://decode
+                //buat user menginput nama file
                 system("cls");
                 printf("Masukan nama file (dengan ekstensi) yang akan di decode: ");
                 scanf(" %s", fileName);
+                
+                //buat path dari nama file
                 sprintf(filePath, "INPUT/Untuk-di-decode/%s", fileName);
                 system("cls");
 
+                //decode file
                 decode(filePath);
 
                 printf("Decode selesai!\n\n");
@@ -92,68 +103,27 @@ int main() {
                 getch();
 
                 break;
-            case 3:
-                return 0;
-            case 4:
+            case 3://help
+                system("cls");
+
+                printf("Encode:\n");
+                printf("\t1. Masukan file yang ingin di encode ke direktori INPUT/Untuk-di-encode/\n");
+                printf("\t2. Di main menu pilih menu encode dan masukan nama file beserta ekstensinya\n");
+                printf("\t3. Tunggu program berhasil mengencode, lama proses ini tergantung dari besar file\n");
+                printf("\t4. Hasil encode akan disimpan di direktori OUTPUT/Hasil-encode/\n\n");
+
+                printf("Decode:\n");
+                printf("\t1. Masukan file yang ingin di decode ke direktori INPUT/Untuk-di-decode/\n");
+                printf("\t2. Di main menu pilih menu decode dan masukan nama file beserta ekstensinya\n");
+                printf("\t3. Tunggu program berhasil mendecode, lama proses ini tergantung dari besar file\n");
+                printf("\t4. Hasil encode akan disimpan di direktori OUTPUT/Hasil-decode/\n\n\n");
+
+                printf("Tekan tombol apapun untuk melanjutkan ");
+                getch();
+                
                 break;
+            case 4://quit
+                return 0;
         }
     }
 }
-
-/*
-int main() {
-    // Step 1: Create a list from the input file
-    qAddress head = createList((char*)"INPUT/Untuk-di-encode/classic.bmp");
-    printf("Initial list:\n");
-    printList(head);
-
-    // Step 2: Sort the list by frequency
-    mergeSort(&head);
-    printf("Sorted list:\n");
-    printList(head);
-
-    // Step 3: Build the Huffman Tree
-    nAddress root = buildHuffmanTree(&head);
-
-    // Step 4: Print the Huffman Tree
-    printf("Huffman Tree:\n");
-    printBinaryTree(root);
-    //  printBinaryTree(root, 0, 10);
-   
-        // Step 5: Generate Huffman Codes
-    table codeTable;
-    codeTable.next = NULL;
-
-    char code[100];  // A buffer to hold the current code
-    generateCodes(root, code, 0, &codeTable);
-
-    // Step 6: Print the Huffman Codes
-    printf("Huffman Codes:\n");
-    printCodes(codeTable.next);
-
-    char* hasil = fprintHeader((char*)"classic.bmp", root);
-
-    encode((char*)"INPUT/Untuk-di-encode/classic.bmp", codeTable,hasil);
-
-    FILE* tree = fopen("tree.txt", "wb");
-
-    fprintPreOrder(root,tree);
-
-    unsigned char buffer[4];
-
-    baca4byte(hasil, buffer);
-    
-    uint32_t num = asciiToInt(buffer);
-
-    printf("%d", num );
-
-    nAddress root1 = constructTree(hasil);
-    printf("\n\n");
-    printBinaryTree(root1);
-
-    decode(hasil);
-
-    return 0;
-}
-
-*/

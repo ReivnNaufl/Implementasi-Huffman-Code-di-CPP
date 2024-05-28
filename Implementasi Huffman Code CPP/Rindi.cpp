@@ -174,7 +174,8 @@ int mainMenu() {
 		printf("==========================================\n");
 		printf("%c Encode\n", (cursor == 1) ? '>' : ' ');
 		printf("%c Decode\n", (cursor == 2) ? '>' : ' ');
-		printf("%c Quit\n", (cursor == 3) ? '>' : ' ');
+        printf("%c Help\n", (cursor == 3) ? '>' : ' ');
+		printf("%c Quit\n", (cursor == 4) ? '>' : ' ');
 
 		input = getch();
 
@@ -182,14 +183,14 @@ int mainMenu() {
 		{
 		case 72://up arrow key
 			if (cursor <= 1) {
-				cursor = 3;
+				cursor = 4;
 			}
 			else {
 				cursor--;
 			}
 			break;
 		case 80://down arrow key
-			if (cursor >= 3) {
+			if (cursor >= 4) {
 				cursor = 1;
 			}
 			else {
