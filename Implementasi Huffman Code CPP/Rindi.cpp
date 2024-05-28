@@ -17,6 +17,7 @@ Tanggal		: 23/05/2024
 #include "struct.h"
 #include "Reivan.h"
 #include "Rindi.h"
+#include <conio.h>
 
 nAddress buildHuffmanTree(qAddress* head) {
     while (next(*head) != NULL) {

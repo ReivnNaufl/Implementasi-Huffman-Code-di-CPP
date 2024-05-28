@@ -37,4 +37,6 @@ void bacaformat(const char* filename, char format[7]);
 
 void ambilnama(const char* path, char* output);
 
+void pindahtanpahapus(const char* nama_file_a, const char* nama_file_b);
+
 #endif
