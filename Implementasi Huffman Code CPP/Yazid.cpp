@@ -376,6 +376,7 @@ void decode(char* filename) {
             }
         }
     }
+    deallocateTree(root);
     fclose(Deco);
     fclose(result);
 }
