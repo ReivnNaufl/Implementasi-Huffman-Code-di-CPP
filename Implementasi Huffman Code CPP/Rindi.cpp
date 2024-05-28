@@ -1,8 +1,10 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "struct.h"
 #include "Reivan.h"
+#include "Rindi.h"
 
 nAddress buildHuffmanTree(qAddress* head) {
     while (next(*head) != NULL) {
@@ -120,5 +122,30 @@ void printCodes(tAddress codeTable) {
     while (p != NULL) {
         printf("Byte: %x, Code: %s\n", byte(p), code(p));
         p = next(p);
+    }
+}
+
+void deallocateTree(nAddress root) {
+    if (root == NULL) {
+        return;
+    }
+
+    // Deallocate left subtree
+    deallocateTree(left(root));
+
+    // Deallocate right subtree
+    deallocateTree(right(root));
+
+    // Deallocate the current node
+    free(root);
+}
+
+void deallocateTable(tAddress codeTable) {
+    tAddress current = codeTable;
+    while (current != NULL) {
+        tAddress next = next(current);
+        free(code(current));  // Deallocate the code string
+        free(current);        // Deallocate the table entry
+        current = next;
     }
 }
