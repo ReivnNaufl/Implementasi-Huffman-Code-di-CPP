@@ -282,6 +282,7 @@ void countNodes(nAddress head, int* count) {
 
 }
 
+//Print ekstensi file, panjang byte tree, dan tree ke awal file encoded
 char* fprintHeader(char* filename, nAddress head) {
 	char* resultPath = (char*) malloc(sizeof(filename) + 10 + (sizeof(char) * 18));
 	char* file = (char*) malloc(sizeof(filename));
