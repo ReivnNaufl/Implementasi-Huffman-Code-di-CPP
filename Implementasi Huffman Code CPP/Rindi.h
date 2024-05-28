@@ -12,5 +12,7 @@ void printBinaryTree(node* root);
 //void printBinaryTree(node* root, int space, int height);
 void generateCodes(nAddress root, char* code, int top, table* codeTable);
 void printCodes(tAddress codeTable);
+void deallocateTree(nAddress root);
+void deallocateTable(tAddress codeTable);
 
 #endif
