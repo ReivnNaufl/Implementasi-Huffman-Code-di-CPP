@@ -1,8 +1,23 @@
+/*	
+Program		: Rindi.cpp
+Deskripsi	: Body prototype untuk build dan print HuffmanTree, 
+              generate dan print Code, dealokasi Tree dan Table
+Dibuat oleh : Rindi Indriani (231511030) 
+Kelompok	: 2
+Kelas		: 1A
+Jurusan     : Teknik Komputer dan Informatika
+Prodi       : D3 Teknik Informatika
+Angkatan    : 2023/2024
+Tanggal		: 23/05/2024
+===============================================*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "struct.h"
 #include "Reivan.h"
+#include "Rindi.h"
+#include <conio.h>
 
 nAddress buildHuffmanTree(qAddress* head) {
     while (next(*head) != NULL) {
@@ -121,4 +136,71 @@ void printCodes(tAddress codeTable) {
         printf("Byte: %x, Code: %s\n", byte(p), code(p));
         p = next(p);
     }
+}
+
+void deallocateTree(nAddress root) {
+    if (root == NULL) {
+        return;
+    }
+
+    // Deallocate left subtree
+    deallocateTree(left(root));
+
+    // Deallocate right subtree
+    deallocateTree(right(root));
+
+    // Deallocate the current node
+    free(root);
+}
+
+void deallocateTable(tAddress codeTable) {
+    tAddress current = codeTable;
+    while (current != NULL) {
+        tAddress next = next(current);
+        free(code(current));  // Deallocate the code string
+        free(current);        // Deallocate the table entry
+        current = next;
+    }
+}
+
+//Function untuk menampilkan main menu dan mereturn pilihan
+int mainMenu() {
+	int cursor = 1, input;
+
+	for (;;) {
+		system("cls");
+		printf("==========================================\n");
+		printf("              Huffman Coding              \n");
+		printf("==========================================\n");
+		printf("%c Encode\n", (cursor == 1) ? '>' : ' ');
+		printf("%c Decode\n", (cursor == 2) ? '>' : ' ');
+		printf("%c Quit\n", (cursor == 3) ? '>' : ' ');
+
+		input = getch();
+
+		switch (input)
+		{
+		case 72://up arrow key
+			if (cursor <= 1) {
+				cursor = 3;
+			}
+			else {
+				cursor--;
+			}
+			break;
+		case 80://down arrow key
+			if (cursor >= 3) {
+				cursor = 1;
+			}
+			else {
+				cursor++;
+			}
+			break;
+		case 13://enter key
+			return cursor;
+			break;
+		default:
+			break;
+		}
+	}
 }

@@ -1,3 +1,17 @@
+/*	
+Program		: Yazid.cpp
+Deskripsi	: Body prototype untuk modular modular 
+              yang berkaitan dengan Encode dan Decode 
+              berdasarkan huffman tree
+Dibuat oleh : Yazid Fauzan Prasatria (231511032) 
+Kelompok	: 2
+Kelas		: 1A
+Jurusan     : Teknik Komputer dan Informatika
+Prodi       : D3 Teknik Informatika
+Angkatan    : 2023/2024
+Tanggal		: ...
+===============================================*/
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -81,6 +95,37 @@ void tambahkan_isi_file(const char* nama_file_a, const char* nama_file_b) {
     }
 }
 
+void pindahtanpahapus(const char* nama_file_a, const char* nama_file_b) {
+    FILE* source_file, * destination_file;
+    char buffer[1024];
+    size_t bytes_read;
+
+    // Open the source file for reading
+    source_file = fopen(nama_file_b, "rb");
+    if (source_file == NULL) {
+        perror("Error opening source file");
+        exit(1);
+    }
+
+    // Open the destination file for writing
+    destination_file = fopen(nama_file_a, "ab");
+    if (destination_file == NULL) {
+        perror("Error opening destination file");
+        fclose(source_file);
+        exit(1);
+    }
+
+    // Read from the source file and write to the destination file
+    while ((bytes_read = fread(buffer, 1, 1024, source_file)) > 0) {
+        fwrite(buffer, 1, bytes_read, destination_file);
+    }
+
+    // Close files
+    fclose(source_file);
+    fclose(destination_file);
+
+}
+
 void binaryToAscii(const char* binaryString, char* asciiString) {
     int length = strlen(binaryString);
     int remainder = length % 8;
@@ -146,6 +191,16 @@ void encode(char* filename, table huff, char* filedes) {
         fclose(fFile);
         exit(1);
     }
+    char nama[50];
+    ambilnama(filename, nama);
+    char path[50];
+    sprintf(path,"INPUT/Untuk-di-decode/%s.txt",nama);
+    FILE *Result2 = fopen(path,"wb");
+    if (Result2 == NULL) {
+        printf("GAGAL MEMUAT FILE2!");
+        fclose(fFile);
+        exit(1);
+    }
 
     unsigned char byteContainer;
     unsigned char buffer = 0;
@@ -190,7 +245,8 @@ void encode(char* filename, table huff, char* filedes) {
     }
     fprintf(Result, "%c", padding);
 
-    printf("%d\n", padding);
+
+
 
 
     // Close the files
@@ -198,7 +254,8 @@ void encode(char* filename, table huff, char* filedes) {
     fclose(Encode);
     fclose(Result);
     tambahkan_isi_file(filedes, "dummy.txt");
-
+    pindahtanpahapus(path, filedes);
+    fclose(Result2);
     /*
     FILE* budi = fopen(filedes, "rb");
     if (budi == NULL) {
@@ -264,7 +321,7 @@ void decode(char* filename) {
         return;
     }
     char path[255];
-    char format[7] = { 0 };  // Initialize format to ensure null-termination
+    char format[7] = { 0 };
     char namafile[255];
 
     bacaformat(filename, format);
@@ -279,18 +336,17 @@ void decode(char* filename) {
     unsigned char size[4];
     baca4byte(filename, size);
     uint32_t nsize = asciiToInt(size);
-    printf("%d", nsize);
     nAddress root = constructTree(filename);
 
     fseek(Deco, nsize+4+7, SEEK_CUR);
     unsigned char d = fgetc(Deco);
     int padding = d;
-    printf("%d", padding);
     unsigned char byteContainer;
     unsigned char buffer[8];
     int bitCount = 0;
 
     nAddress current = root;  
+    printBinaryTree(root);
 
     while (fread(&byteContainer, sizeof(unsigned char), 1, Deco)) {
         // Jika mencapai akhir file, proses bit yang tersisa

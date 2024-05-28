@@ -1,3 +1,15 @@
+/*	
+Program		: Reivan.h
+Deskripsi	: Header untuk ...
+Dibuat oleh : Muhammad Reivan Naufal Mufid (231511021) 
+Kelompok	: 2
+Kelas		: 1A
+Jurusan     : Teknik Komputer dan Informatika
+Prodi       : D3 Teknik Informatika
+Angkatan    : 2023/2024
+Tanggal		: ...
+===============================================*/
+
 #pragma once
 #ifndef Reivan_h
 #define Reivan_h
@@ -34,8 +46,8 @@ void splitList(qAddress src, qAddress* lList, qAddress* rList);
 //Function untuk manggabungkan 2 queue secara sorted ascending berdasarkan freq dan byte
 qAddress merge(qAddress lSubList, qAddress rSubList);
 
-//Function untuk menampilkan main menu dan mereturn pilihan
-int mainMenu();
+// //Function untuk menampilkan main menu dan mereturn pilihan
+// int mainMenu();
 
 //Print ekstensi file, panjang byte tree, dan tree ke awal file encoded
 char* fprintHeader(char* filename, nAddress head);

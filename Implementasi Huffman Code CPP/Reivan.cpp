@@ -1,3 +1,15 @@
+/*	
+Program		: Reivan.cpp
+Deskripsi	: Body prototype untuk ...
+Dibuat oleh : Muhammad Reivan Naufal Mufid (231511021) 
+Kelompok	: 2
+Kelas		: 1A
+Jurusan     : Teknik Komputer dan Informatika
+Prodi       : D3 Teknik Informatika
+Angkatan    : 2023/2024
+Tanggal		: ...
+===============================================*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -226,47 +238,47 @@ qAddress merge(qAddress lSubList, qAddress rSubList) {
 	return merged;
 }
 
-//Function untuk menampilkan main menu dan mereturn pilihan
-int mainMenu() {
-	int cursor = 1, input;
+// //Function untuk menampilkan main menu dan mereturn pilihan
+// int mainMenu() {
+// 	int cursor = 1, input;
 
-	for (;;) {
-		system("cls");
-		printf("==========================================\n");
-		printf("              Huffman Coding              \n");
-		printf("==========================================\n");
-		printf("%c Encode\n", (cursor == 1) ? '>' : ' ');
-		printf("%c Decode\n", (cursor == 2) ? '>' : ' ');
-		printf("%c Quit\n", (cursor == 3) ? '>' : ' ');
+// 	for (;;) {
+// 		system("cls");
+// 		printf("==========================================\n");
+// 		printf("              Huffman Coding              \n");
+// 		printf("==========================================\n");
+// 		printf("%c Encode\n", (cursor == 1) ? '>' : ' ');
+// 		printf("%c Decode\n", (cursor == 2) ? '>' : ' ');
+// 		printf("%c Quit\n", (cursor == 3) ? '>' : ' ');
 
-		input = getch();
+// 		input = getch();
 
-		switch (input)
-		{
-		case 72://up arrow key
-			if (cursor <= 1) {
-				cursor = 3;
-			}
-			else {
-				cursor--;
-			}
-			break;
-		case 80://down arrow key
-			if (cursor >= 3) {
-				cursor = 1;
-			}
-			else {
-				cursor++;
-			}
-			break;
-		case 13://enter key
-			return cursor;
-			break;
-		default:
-			break;
-		}
-	}
-}
+// 		switch (input)
+// 		{
+// 		case 72://up arrow key
+// 			if (cursor <= 1) {
+// 				cursor = 3;
+// 			}
+// 			else {
+// 				cursor--;
+// 			}
+// 			break;
+// 		case 80://down arrow key
+// 			if (cursor >= 3) {
+// 				cursor = 1;
+// 			}
+// 			else {
+// 				cursor++;
+// 			}
+// 			break;
+// 		case 13://enter key
+// 			return cursor;
+// 			break;
+// 		default:
+// 			break;
+// 		}
+// 	}
+// }
 
 //Procedure untuk menghitung node tree
 void countNodes(nAddress head, int* count) {
