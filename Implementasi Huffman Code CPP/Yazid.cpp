@@ -21,7 +21,8 @@ Tanggal		: ...
 #include <stdlib.h>
 #include "Reivan.h"
 #include "Rindi.h"
-
+#include <stdint.h>
+/*
 int binerKeDesimal(const char* biner) {
     int desimal = 0;
     int panjang = strlen(biner);
@@ -32,8 +33,8 @@ int binerKeDesimal(const char* biner) {
     }
     return desimal;
 }
+*/
 
-#include <stdint.h>
 
 void intToAscii(uint32_t num, char* ascii) {
     // Konversi angka ke representasi biner 4 byte
@@ -94,7 +95,7 @@ void tambahkan_isi_file(const char* nama_file_a, const char* nama_file_b) {
     if (remove(nama_file_b) == 1) {
     }
 }
-
+/*
 void pindahtanpahapus(const char* nama_file_a, const char* nama_file_b) {
     FILE* source_file, * destination_file;
     char buffer[1024];
@@ -164,7 +165,7 @@ void binaryToAscii(const char* binaryString, char* asciiString) {
         free((char*)binaryString);
     }
 }
-
+*/
 void encode(char* filename, table huff, char* filedes) {
     FILE* fFile, * Encode, * Result;
     tAddress ptrtree;
@@ -191,6 +192,7 @@ void encode(char* filename, table huff, char* filedes) {
         fclose(fFile);
         exit(1);
     }
+    /*
     char nama[50];
     ambilnama(filename, nama);
     char path[50];
@@ -201,7 +203,7 @@ void encode(char* filename, table huff, char* filedes) {
         fclose(fFile);
         exit(1);
     }
-
+    */
     unsigned char byteContainer;
     unsigned char buffer = 0;
     int bitCount = 0;
@@ -254,8 +256,8 @@ void encode(char* filename, table huff, char* filedes) {
     fclose(Encode);
     fclose(Result);
     tambahkan_isi_file(filedes, "dummy.txt");
-    pindahtanpahapus(path, filedes);
-    fclose(Result2);
+    /*pindahtanpahapus(path, filedes);
+    fclose(Result2);*/
     /*
     FILE* budi = fopen(filedes, "rb");
     if (budi == NULL) {
