@@ -185,7 +185,8 @@ int mainMenu() {
         printf("                                        ==========================================                                      \n");
         printf("                                        %c Encode\n", (cursor == 1) ? '>' : ' ');
         printf("                                        %c Decode\n", (cursor == 2) ? '>' : ' ');
-        printf("                                        %c Quit\n", (cursor == 3) ? '>' : ' ');
+        printf("                                        %c Help\n", (cursor == 3) ? '>' : ' ');
+        printf("                                        %c Quit\n", (cursor == 4) ? '>' : ' ');
 
 		input = getch();
 
