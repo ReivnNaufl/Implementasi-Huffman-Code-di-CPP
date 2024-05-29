@@ -28,6 +28,7 @@ Fitur
   2. Decode File
 
 About Us
-  231511021 Muhammad Reivan Naufal Mufid  Username: ReivnNaufl
-  231511030 Rindi Indriani  Username: rindrn
-  231511032 Yazid Fauzan Prasatria  Username: yuzid
+
+  1. 231511021 Muhammad Reivan Naufal Mufid  Username: ReivnNaufl
+  2. 231511030 Rindi Indriani  Username: rindrn
+  3. 231511032 Yazid Fauzan Prasatria  Username: yuzid
