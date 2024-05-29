@@ -8,16 +8,20 @@ Instalasi
   3. Jalankan Implementasi Huffman Code CPP.exe
 
 Penggunaan
-Encode File:
-  1. Masukan file yang ingin di encode ke direktori INPUT/Untuk-di-encode/
-  2. Di main menu pilih menu encode dan masukan nama file beserta ekstensinya
-  3. Tunggu program berhasil mengencode, lama proses ini tergantung dari besar file
-  4. Hasil encode akan disimpan di direktori OUTPUT/Hasil-encode/
-Decode File:
-  1. Masukan file yang ingin di decode ke direktori INPUT/Untuk-di-decode/
-  2. Di main menu pilih menu decode dan masukan nama file beserta ekstensinya
-  3. Tunggu program berhasil mendecode, lama proses ini tergantung dari besar file
-  4. Hasil encode akan disimpan di direktori OUTPUT/Hasil-decode/   
+
+  Encode File:
+  
+    1. Masukan file yang ingin di encode ke direktori INPUT/Untuk-di-encode/
+    2. Di main menu pilih menu encode dan masukan nama file beserta ekstensinya
+    3. Tunggu program berhasil mengencode, lama proses ini tergantung dari besar file
+    4. Hasil encode akan disimpan di direktori OUTPUT/Hasil-encode/
+  
+  Decode File:
+  
+    1. Masukan file yang ingin di decode ke direktori INPUT/Untuk-di-decode/
+    2. Di main menu pilih menu decode dan masukan nama file beserta ekstensinya
+    3. Tunggu program berhasil mendecode, lama proses ini tergantung dari besar file
+    4. Hasil encode akan disimpan di direktori OUTPUT/Hasil-decode/   
 
 Fitur
   1. Encode File
