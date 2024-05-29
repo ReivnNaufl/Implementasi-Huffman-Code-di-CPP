@@ -3,7 +3,7 @@
 Aplikasi ini adalah aplikasi untuk mengkompresi binary file menggunakan metode huffman coding.
 
 Instalasi
-  1. Download Kompresi.Binary.File.Menggunakan.Huffman.Coding.vx.x.x..zip dari release terbaru
+  1. Download Kompresi.Binary.File.Menggunakan.Huffman.Coding.vx.x.x..zip dari [release terbaru](https://github.com/ReivnNaufl/Kompresi-Binary-File-Dengan-Huffman-Coding/releases)
   2. Ekstrak .zip ke direktori pilihan
   3. Jalankan Implementasi Huffman Code CPP.exe
 
