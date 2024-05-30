@@ -185,15 +185,14 @@ void warnateks(int warna) {
     SetConsoleTextAttribute(hConsole, warna);
 }
 
-void gotoxy(int x, int y) { 
-    HANDLE hConsoleOutput;  
-    COORD dwCursorPosition;  
-    dwCursorPosition.X = x;  
-    dwCursorPosition.Y = y;  
-    hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);  
-    SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);   
-}
-
+// void gotoxy(int x, int y) { 
+//     HANDLE hConsoleOutput;  
+//     COORD dwCursorPosition;  
+//     dwCursorPosition.X = x;  
+//     dwCursorPosition.Y = y;  
+//     hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);  
+//     SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);   
+// }
 
 //Function untuk menampilkan main menu dan mereturn pilihan
 int mainMenu() {

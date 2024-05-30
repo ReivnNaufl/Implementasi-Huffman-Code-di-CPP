@@ -41,6 +41,9 @@ void deallocateTree(nAddress root);
 // Procedure untuk deallocate semua entri dalam code table dari memori
 void deallocateTable(tAddress codeTable);
 
+//Procedure untuk menambahkan warna pada teks
+void warnateks(int warna);
+
 //Function untuk menampilkan main menu dan mereturn pilihan
 int mainMenu();
 
