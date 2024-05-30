@@ -10,7 +10,7 @@ Kelas		: 1A
 Jurusan     : Teknik Komputer dan Informatika
 Prodi       : D3 Teknik Informatika
 Angkatan    : 2023/2024
-Tanggal		: 15 Mei 2023
+Tanggal		: 21/05/2024
 ===============================================*/
 
 #include <stdio.h>

@@ -187,7 +187,7 @@ void splitList(qAddress src, qAddress* lSubList, qAddress* rSubList) {
 	next(mid) = NULL;//pisah queue
 }
 
-//Functionuntuk manggabungkan 2 queue secara sorted ascending berdasarkan freq dan byte
+//Function untuk menggabungkan 2 queue secara sorted ascending berdasarkan freq dan byte
 qAddress merge(qAddress lSubList, qAddress rSubList) {
 	//deklarasi var dan insialisasi
 	qAddress merged = NULL, lPtr = lSubList, rPtr = rSubList, temp = NULL;
