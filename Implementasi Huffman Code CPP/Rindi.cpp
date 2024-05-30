@@ -200,7 +200,7 @@ int mainMenu() {
 
 	  for (;;) {
         system("cls");
-        warnateks(GREEN);
+        warnateks(PURPLE);
         printf("                                   __ __     ______                  _____        __                                \n");
         printf("                                  / // /_ __/ _/ _/_ _  ___ ____    / ___/__  ___/ /__                              \n");
         printf("                                 / _  / // / _/ _/  ' \\/ _ `/ _ \\  / /__/ _ \\/ _  / -_)                          \n");
@@ -211,13 +211,13 @@ int mainMenu() {
         printf("                                                      MENU                                                          \n");
         printf("                                    ==========================================                                      \n");
         
-        warnateks(cursor == 1 ? LIGHT_GREEN : WHITE);
+        warnateks(cursor == 1 ? PURPLE : WHITE);
         printf("                                        %c Encode\n", (cursor == 1) ? '>' : ' ');
-        warnateks(cursor == 2 ? LIGHT_GREEN : WHITE);
+        warnateks(cursor == 2 ? PURPLE : WHITE);
         printf("                                        %c Decode\n", (cursor == 2) ? '>' : ' ');
-        warnateks(cursor == 3 ? LIGHT_GREEN : WHITE);
+        warnateks(cursor == 3 ? PURPLE : WHITE);
         printf("                                        %c Help\n", (cursor == 3) ? '>' : ' ');
-        warnateks(cursor == 4 ? LIGHT_GREEN : WHITE);
+        warnateks(cursor == 4 ? PURPLE : WHITE);
         printf("                                        %c Quit\n", (cursor == 4) ? '>' : ' ');
 
         input = getch();
