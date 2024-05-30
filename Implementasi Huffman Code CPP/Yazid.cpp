@@ -247,10 +247,6 @@ void encode(char* filename, table huff, char* filedes) {
     }
     fprintf(Result, "%c", padding);
 
-
-
-
-
     // Close the files
     fclose(fFile);
     fclose(Encode);

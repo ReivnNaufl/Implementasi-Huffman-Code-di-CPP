@@ -18,6 +18,30 @@ Tanggal		: 23/05/2024
 #include "Reivan.h"
 #include "Rindi.h"
 #include <conio.h>
+#include <winnt.h>
+#include <winbase.h>
+#include <wincon.h>
+#define panjang 6000
+
+#define BLACK           0
+#define DARK_BLUE       1
+#define GREEN           2
+#define TURQUOISE       3
+#define DARK_RED        4
+#define PURPLE          5
+#define FOREST_GREEN    6
+#define LIGHT_GRAY      7
+#define GRAY            8
+#define BLUE            9
+#define LIGHT_GREEN    10
+#define LIGHT_BLUE     11
+#define RED            12
+#define PINK           13
+#define YELLOW         14
+#define WHITE          15
+#define STDALERT      140
+#define STDHEADER     143
+#define STDBACKGROUND 159
 
 // Function untuk membangun Huffman Tree dari queue yang berisi node-node dengan frekuensi tertentu
 nAddress buildHuffmanTree(qAddress* head) {
@@ -155,56 +179,63 @@ void deallocateTable(tAddress codeTable) {
     }
 }
 
+void warnateks(int warna) { 
+    HANDLE hConsole; 
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, warna);
+}
+
+void gotoxy(int x, int y) { 
+    HANDLE hConsoleOutput;  
+    COORD dwCursorPosition;  
+    dwCursorPosition.X = x;  
+    dwCursorPosition.Y = y;  
+    hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);  
+    SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);   
+}
+
+
 //Function untuk menampilkan main menu dan mereturn pilihan
 int mainMenu() {
 	int cursor = 1, input;
 
 	  for (;;) {
         system("cls");
-        printf(" __    __             ______    ______                                            ______                   __           \n");
-        printf("|  \\  |  \\           /      \\  /      \\                                          /      \\                 |  \\          \n");
-        printf("| $$  | $$ __    __ |  $$$$$$\\|  $$$$$$\\ ______ ____    ______   _______        |  $$$$$$\\  ______    ____| $$  ______  \n");
-        printf("| $$__| $$|  \\  |  \\| $$_  \\$$| $$_  \\$$|      \\    \\  |      \\ |       \\       | $$   \\$$ /      \\  /      $$ /      \\ \n");
-        printf("| $$    $$| $$  | $$| $$ \\    | $$ \\    | $$$$$$\\$$$$\\  \\$$$$$$\\| $$$$$$$\\      | $$      |  $$$$$$\\|  $$$$$$$|  $$$$$$\\\n");
-        printf("| $$$$$$$$| $$  | $$| $$$$    | $$$$    | $$ | $$ | $$ /      $$| $$  | $$      | $$   __ | $$  | $$| $$  | $$| $$    $$\n");
-        printf("| $$  | $$| $$__/ $$| $$      | $$      | $$ | $$ | $$|  $$$$$$$| $$  | $$      | $$__/  \\| $$__/ $$| $$__| $$| $$$$$$$$\n");
-        printf("| $$  | $$ \\$$    $$| $$      | $$      | $$ | $$ | $$ \\$$    $$| $$  | $$       \\$$    $$ \\$$    $$ \\$$    $$ \\$$     \\\n");
-        printf(" \\$$   \\$$  \\$$$$$$  \\$$       \\$$       \\$$  \\$$  \\$$  \\$$$$$$$ \\$$   \\$$        \\$$$$$$   \\$$$$$$   \\$$$$$$$  \\$$$$$$$\n");
-        printf("                                                                                                                        \n");
-        printf("                                                                                                                        \n");
-        printf("                                        ==========================================                                      \n");
-        printf("                                                          MENU                                                          \n");
-        printf("                                        ==========================================                                      \n");
+        warnateks(GREEN);
+        printf("                                   __ __     ______                  _____        __                                \n");
+        printf("                                  / // /_ __/ _/ _/_ _  ___ ____    / ___/__  ___/ /__                              \n");
+        printf("                                 / _  / // / _/ _/  ' \\/ _ `/ _ \\  / /__/ _ \\/ _  / -_)                          \n");
+        printf("                                /_//_/\\_,_/_//_//_/_/_/\\_,_/_//_/  \\___/\\___/\\_,_/\\__/                        \n");
+        printf("                                                                                                                    \n");
+        warnateks(YELLOW);
+        printf("                                    ==========================================                                      \n");
+        printf("                                                      MENU                                                          \n");
+        printf("                                    ==========================================                                      \n");
+        
+        warnateks(cursor == 1 ? LIGHT_GREEN : WHITE);
         printf("                                        %c Encode\n", (cursor == 1) ? '>' : ' ');
+        warnateks(cursor == 2 ? LIGHT_GREEN : WHITE);
         printf("                                        %c Decode\n", (cursor == 2) ? '>' : ' ');
+        warnateks(cursor == 3 ? LIGHT_GREEN : WHITE);
         printf("                                        %c Help\n", (cursor == 3) ? '>' : ' ');
+        warnateks(cursor == 4 ? LIGHT_GREEN : WHITE);
         printf("                                        %c Quit\n", (cursor == 4) ? '>' : ' ');
 
-		input = getch();
+        input = getch();
 
 		switch (input)
 		{
-		case 72://up arrow key
-			if (cursor <= 1) {
-				cursor = 4;
-			}
-			else {
-				cursor--;
-			}
-			break;
-		case 80://down arrow key
-			if (cursor >= 4) {
-				cursor = 1;
-			}
-			else {
-				cursor++;
-			}
-			break;
-		case 13://enter key
-			return cursor;
-			break;
-		default:
-			break;
+		case 72: // up arrow key
+                cursor = (cursor <= 1) ? 4 : cursor - 1;
+                break;
+            case 80: // down arrow key
+                cursor = (cursor >= 4) ? 1 : cursor + 1;
+                break;
+            case 13: // enter key
+                return cursor;
+                break;
+            default:
+                break;
 		}
 	}
 }
