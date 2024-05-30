@@ -19,9 +19,10 @@ Tanggal		: 23/05/2024
 #include "Rindi.h"
 #include <conio.h>
 
+// Function untuk membangun Huffman Tree dari queue yang berisi node-node dengan frekuensi tertentu
 nAddress buildHuffmanTree(qAddress* head) {
     while (next(*head) != NULL) {
-        // Extract two nodes with the smallest frequencies
+        // Mengambil dua node dengan frekuensi terkecil dari queue
         nAddress left = pNode(*head);
         qAddress temp = *head;
         *head = next(*head);
@@ -32,13 +33,13 @@ nAddress buildHuffmanTree(qAddress* head) {
         *head = next(*head);
         free(temp);
 
-        // Create a new internal node with these two nodes as children
-        nAddress newNode = createNode(0);  // The info for internal nodes is not important
+        // Membuat node internal baru dengan kedua node sebagai anak-anaknya
+        nAddress newNode = createNode(0);  // Informasi pada node internal tidak penting
         freq(newNode) = freq(left) + freq(right);
         left(newNode) = left;
         right(newNode) = right;
 
-        // Insert the new node back into the queue
+        // Insert node baru kembali ke dalam queue
         qAddress newQueueNode = createQueueNode(newNode);
         queueInsert(head, newQueueNode);
 
@@ -46,10 +47,11 @@ nAddress buildHuffmanTree(qAddress* head) {
         mergeSort(head);
     }
 
-    // The remaining node is the root of the Huffman Tree
+    // Node yang tersisa adalah root dari Huffman Tree
     return pNode(*head);
 }
 
+// Procedure untuk print value pada node
 void printNodeValue(node* n) {
     if (n == NULL) {
         printf("<null>");
@@ -60,6 +62,8 @@ void printNodeValue(node* n) {
     printf("\n");
 }
 
+
+// Procedure untuk print Huffman Tree dengan format tertentu
 void printTree(node* root, bool isRight, const char* indent) {
     if (right(root) != NULL) {
         char* newIndent = (char*)malloc(strlen(indent) + 10);
@@ -85,29 +89,14 @@ void printTree(node* root, bool isRight, const char* indent) {
     }
 }
 
+// Procedure untuk print seluruh Huffman Tree
 void printBinaryTree(node* root) {
     if (root != NULL) {
         printTree(root, false, "");
     }
 }
 
-//void printBinaryTree(node* root, int space, int height) {
-//    if (root == NULL) {
-//        return;
-//    }
-//
-//    space += height;
-//    printBinaryTree(right(root), space, height);
-//    printf("\n");
-//
-//    for (int i = height; i < space; i++) {
-//        printf(" ");
-//    }
-//    printf("%d", (int)info(root));  // Assuming info is the value you want to print
-//    printf("\n");
-//    printBinaryTree(left(root), space, height);
-//}
-
+// Procedure untuk menghasilkan kode Huffman untuk setiap karakter dan menyimpannya dalam code table
 void generateCodes(nAddress root, char* code, int top, table* codeTable) {
     if (left(root)) {
         code[top] = '0';
@@ -130,6 +119,7 @@ void generateCodes(nAddress root, char* code, int top, table* codeTable) {
     }
 }
 
+// Procedure untuk print semua kode Huffman yang tersimpan dalam code table
 void printCodes(tAddress codeTable) {
     tAddress p = codeTable;
     while (p != NULL) {
@@ -138,6 +128,7 @@ void printCodes(tAddress codeTable) {
     }
 }
 
+// Procedure untuk deallocate semua node dalam Huffman Tree dari memori
 void deallocateTree(nAddress root) {
     if (root == NULL) {
         return;
@@ -153,6 +144,7 @@ void deallocateTree(nAddress root) {
     free(root);
 }
 
+// Procedure untuk deallocate semua entri dalam code table dari memori
 void deallocateTable(tAddress codeTable) {
     tAddress current = codeTable;
     while (current != NULL) {

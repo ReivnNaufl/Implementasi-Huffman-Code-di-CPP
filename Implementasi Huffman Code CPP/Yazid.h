@@ -1,6 +1,8 @@
 /*	
 Program		: Yazid.h
-Deskripsi	: Header untuk ...
+Deskripsi	: Header untuk modular modular 
+              yang berkaitan dengan Encode dan Decode 
+              berdasarkan huffman tree
 Dibuat oleh : Yazid Fauzan Prasatria (231511032)  
 Kelompok	: 2
 Kelas		: 1A

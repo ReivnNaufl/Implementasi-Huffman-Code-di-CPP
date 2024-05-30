@@ -17,16 +17,30 @@ Tanggal		: 23/05/2024
 
 #include "struct.h"
 
-// Function declarations for Huffman Tree creation and code generation
+// Function untuk membangun Huffman Tree dari queue yang berisi node-node dengan frekuensi tertentu
 nAddress buildHuffmanTree(qAddress* head);
+
+// Procedure untuk print value pada node
 void printNodeValue(node* n);
+
+// Procedure untuk print Huffman Tree dengan format tertentu
 void printTree(node* root, bool isRight, const char* indent);
+
+// Procedure untuk print seluruh Huffman Tree
 void printBinaryTree(node* root);
-//void printBinaryTree(node* root, int space, int height);
+
+// Procedure untuk menghasilkan kode Huffman untuk setiap karakter dan menyimpannya dalam code table
 void generateCodes(nAddress root, char* code, int top, table* codeTable);
+
+// Procedure untuk print semua kode Huffman yang tersimpan dalam code table
 void printCodes(tAddress codeTable);
+
+// Procedure untuk deallocate semua node dalam Huffman Tree dari memori
 void deallocateTree(nAddress root);
+
+// Procedure untuk deallocate semua entri dalam code table dari memori
 void deallocateTable(tAddress codeTable);
+
 //Function untuk menampilkan main menu dan mereturn pilihan
 int mainMenu();
 
