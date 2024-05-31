@@ -14,6 +14,7 @@ Tanggal		: 23/05/2024
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <Windows.h>
 #include "struct.h"
 #include "Reivan.h"
 #include "Rindi.h"

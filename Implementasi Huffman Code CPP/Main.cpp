@@ -15,10 +15,10 @@ Tanggal		: 21/05/2024
 
 #include <stdio.h>
 #include <ctype.h>
+#include <Windows.h>
 #include "Reivan.h"
 #include "Rindi.h"
 #include "Yazid.h"
-#include <Windows.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <conio.h>
